@@ -59,7 +59,7 @@
 	<div class="space-y-2 max-w-md w-full px-1">
 		<div class="flex justify-around">
 			<OvLogo />
-			<h2 class="h2">{showResetPassword ? $t('auth.titleReset') : $t('auth.title')}</h2>
+			<h3 class="h3">{showResetPassword ? $t('auth.titleReset') : $t('auth.title')}</h3>
 		</div>
 
 		<div class="card p-3 sm:p-6 variant-ringed">
