@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import OvLogo from '$lib/components/SVG/OVLogo.svelte';
 </script>
 
 <!--
@@ -11,7 +12,12 @@
   ```
 -->
 <main class="container h-full flex flex-col justify-center items-center space-y-4">
-	<h1 class="h1 text-error-200-700-token">{$page.status}</h1>
+	<div class="flex">
+		<div class="animate-ping">
+			<OvLogo />
+		</div>
+		<h1 class="h1 text-error-200-700-token">{$page.status}</h1>
+	</div>
 	{#if $page.error}
 		<h2 class="h2">{$page.error.message}</h2>
 	{/if}
