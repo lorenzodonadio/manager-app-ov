@@ -1,0 +1,18 @@
+{
+	"who": "Who did you talk to?",
+	"whoTooltip": "We advice you to add a contact to talk in the future!",
+	"has_alternative": "Do you currently own a water filter or similar product?",
+	"which_alternative": "If yes, which product?",
+	"is_interested": "Are you interested in Openversum's filter?",
+	"no_interest_text": "If you're not interested in our product, can you tell us why? Are there any specific features or benefits missing that you were hoping for? Do you have any doubts or concerns that we could address?",
+	"why_no_interest": "Why no interest?",
+	"if_interested_text": "If interested, what where the reason for not buying a filter? For example:",
+	"intrest_li1": "Price, too expensive",
+	"intrest_li2": "Not the money right now - pay in rates ?",
+	"intrest_li3": "have to ask someone else: - who?",
+	"intrest_li4": "Are there other better alternatives - which?",
+	"intrest_li5": "Others - specify",
+	"reason_not_to_buy": "Reasons not to buy",
+	"general_comments_text": "Finally, do you have any general comments or feedback that you would like to share about our product or company?",
+	"general_comments": "General comments"
+}

@@ -1,0 +1,11 @@
+{
+	"custName": "Name & last name",
+	"custNamePlace": "Customer name",
+	"address": "Address",
+	"addressPlace": "City / Town / Village",
+	"phone": "Phone number",
+	"addCust": "Add Customer",
+	"addContact": "Add Contact",
+	"listTitle": "List of your customers",
+	"searchCust": "Search by name, address, or phone..."
+}

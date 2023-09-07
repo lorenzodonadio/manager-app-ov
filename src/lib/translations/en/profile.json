@@ -1,0 +1,13 @@
+{
+	"modalTitle": "Please complete your profile",
+	"firstName": "First name",
+	"lastName": "Last name",
+	"country": "Country",
+	"phone": "Phone",
+	"phonePlace": "Phone (no country extension)",
+	"phoneInvalid": "Please enter a valid phone number",
+	"age": "Age (years)",
+	"gender": "Gender",
+	"privacyTitle": "Privacy notice",
+	"privacyCheck": "I have read and understood the privacy notice"
+}

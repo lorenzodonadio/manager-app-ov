@@ -1,0 +1,31 @@
+{
+	"disclaimer": "We'd now like to gather some information about your daily water usage. Your responses will aid Openversum in improving our filters for your and your community's maximum benefit. Rest assured, this information will be confidential and used strictly for research purposes.",
+	"people_in_household": "How many people in your household will be using this water filter?",
+	"people_below_5yo": "Of these, how many are children aged between 0 to 5 years?",
+	"cost_of_water_month": "On average, how much do you spend on water each month?",
+	"water_source": "What is your primary source of water?",
+	"opt_water_source": [
+		"Lake",
+		"River",
+		"Spring",
+		"Aqueduct",
+		"Rainwater",
+		"Well",
+		"Water truck",
+		"Bottled water",
+		"Other",
+		"Doesn’t know / No answer"
+	],
+	"treatment": "Before using the filter, did you treat your water?",
+	"opt_treatment": ["Yes", "No", "Sometimes", "Doesn’t know / No answer"],
+	"opt_yn": ["Yes", "No"],
+	"opt_yn_nn": ["Yes", "No", "Doesn’t know / No answer"],
+	"treatment_how": "If yes or sometimes, how did you treat the water?",
+	"opt_treatment_how": ["Chlorine", "Boiling", "Another Filter", "UV", "Other"],
+	"treatment_boiling": "If you boiled the water for treatment, what type of fuel did you use?",
+	"opt_treatment_boiling": ["Wood", "Charcoal", "Electric stove", "Gas", "Other"],
+	"sick_past30d": "In the last 30 days, have you or anyone in your family had any health issues related to water quality?",
+	"sick_symptoms": "These symptoms might include diarrhea, stomach cramps, nausea, or vomiting.",
+	"general_water_problems": "What are the most common water-related issues you face?",
+	"general_water_problems_examples": "These could include issues like contamination, turbidity, bad taste or smell, water shortages, and so forth."
+}

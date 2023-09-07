@@ -1,0 +1,26 @@
+{
+	"q1": "Filter sold during:",
+	"optq1": ["Dry season", "Rainy season"],
+	"q2": "How did you access the area?",
+	"optq2": [
+		"Car",
+		"Truck",
+		"Walking",
+		"Motorbike",
+		"Bus",
+		"Horseback",
+		"Water transport / Boat",
+		"Other"
+	],
+
+	"q3": "How difficult was it to access the area?",
+	"optq3": ["Very easy", "Easy", "Difficult", "Very difficult"],
+	"q4": "Did you notice an aqueduct service close by?",
+	"optq4": ["Yes", "No", "Doesn’t know / No answer"],
+	"q5": "Did you already sell filters in this area?",
+	"optq5": ["Yes", "No"],
+	"q6": "Had the customers already heard of you and/or openversum?",
+	"optq6": ["Yes", "No"],
+	"q7": "Comments",
+	"q7description": "e.g: how did you reach the customers? Was it difficult to convince them? Did you have to lower your price?"
+}

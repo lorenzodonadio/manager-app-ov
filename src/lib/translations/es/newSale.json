@@ -1,0 +1,8 @@
+{
+	"step1": "Venta de filtro",
+	"step2": "Preguntas sobre el agua",
+	"step3": "Preguntas del emprendeor",
+	"mandatoryFields": "Todos los campos son obligatorios, completelos antes de continuar",
+	"diclaimer": "Este es el cuestionario para la venta de un nuevo filtro, todos los datos del cliente son confidenciales y están destinados a mejorar nuestros servicios",
+	"finishMsg": "Gracias por completar la venta de filtros"
+}

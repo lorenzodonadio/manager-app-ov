@@ -1,0 +1,31 @@
+{
+	"disclaimer": "Ahora nos gustaría recopilar información sobre su uso diario de agua. Sus respuestas ayudarán a Openversum a mejorar nuestros filtros para su máximo beneficio y el de su comunidad. Tenga la seguridad de que esta información será confidencial y se utilizará estrictamente para fines de investigación.",
+	"people_in_household": "¿Cuántas personas en su hogar usarán este filtro de agua?",
+	"people_below_5yo": "De estos, ¿cuántos son niños de entre 0 a 5 años?",
+	"cost_of_water_month": "En promedio, ¿cuánto gasta en agua cada mes?",
+	"water_source": "¿Cuál es su fuente principal de agua?",
+	"opt_water_source": [
+		"Lago",
+		"Río",
+		"Manantial",
+		"Aqueducto",
+		"Agua de lluvia",
+		"Pozo",
+		"Camión de agua",
+		"Agua embotellada",
+		"Otro",
+		"No sabe / No responde"
+	],
+	"treatment": "Antes de usar el filtro, ¿trataba su agua?",
+	"opt_treatment": ["Sí", "No", "A veces", "No sabe / No responde"],
+	"opt_yn": ["Sí", "No"],
+	"opt_yn_nn": ["Sí", "No", "No sabe / No responde"],
+	"treatment_how": "Si respondió sí o a veces, ¿cómo trataba el agua?",
+	"opt_treatment_how": ["Cloro", "Hirviendo", "Otro filtro", "UV", "Otro"],
+	"treatment_boiling": "Si hervía el agua para tratarla, ¿qué tipo de combustible utilizaba?",
+	"opt_treatment_boiling": ["Madera", "Carbón", "Estufa eléctrica", "Gas", "Otro"],
+	"sick_past30d": "En los últimos 30 días, ¿ha tenido usted o alguien de su familia algún problema de salud relacionado con la calidad del agua?",
+	"sick_symptoms": "Estos síntomas pueden incluir diarrea, calambres estomacales, náuseas o vómitos.",
+	"general_water_problems": "¿Cuáles son los problemas relacionados con el agua que enfrenta más comúnmente?",
+	"general_water_problems_examples": "Estos podrían incluir problemas como contaminación, turbidez, mal sabor u olor, escasez de agua, etc."
+}

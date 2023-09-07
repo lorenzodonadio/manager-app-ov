@@ -1,0 +1,18 @@
+{
+	"q1": "¿Cuantos filtros se vendieron?",
+	"q2": "¿Por cual precio?",
+	"currency": "Divisa",
+	"customer": "¿Quien compro el filtro?",
+	"city": "Ciudad / Pueblo",
+	"differentClient": "¿Elejir otro cliente?",
+	"existingClient": "Cliente existente",
+	"newClient": "Nuevo cliente",
+	"filterQR": "Código QR del filtro",
+	"scanQR": "Escanear código QR",
+	"scanned": "filtros escaneados",
+	"alreadyScanned": "Ya has escaneado este código QR",
+	"notBelong": "Este código QR no pertenece a Openversum",
+	"scanInstructions": "Escanea el filtro o filtros que vendiste antes de continuar",
+	"mustScanMsg": "Explique por qué no es posible escanear el filtro y especifique cuántos filtros vendió",
+	"mustScanOneMsg": "Escanee al menos un filtro"
+}
