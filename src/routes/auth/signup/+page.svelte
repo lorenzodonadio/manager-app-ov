@@ -58,72 +58,69 @@
 </script>
 
 <div class="h-full flex justify-center items-center">
-	<div class="space-y-2 max-w-md w-full px-1">
-		<div class="flex justify-around">
-			<OvLogo />
+	<div class="card p-3 sm:p-6 variant-ringed max-w-lg w-full">
+		<div class="flex justify-between">
 			<h3 class="h3">{$t('auth.signup')}</h3>
+			<OvLogo />
 		</div>
-
-		<div class="card p-3 sm:p-6 variant-ringed">
-			<div class="space-y-4">
-				<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-				<form method="POST" action="?/signup" use:enhance={handleSignUp}>
-					<div class="">
-						<label class="label" for="email">
-							<span>{$t('auth.email')}</span>
-						</label>
-						<input
-							bind:value={email}
-							id="email"
-							class="input"
-							type="email"
-							name="email"
-							autocomplete="email"
-							required
-							placeholder={$t('auth.emailPlace')}
-						/>
-					</div>
-
-					<InputPasswordStrenght
-						name="password"
-						label={$t('auth.pwd')}
-						placeholder={$t('auth.pwd')}
-						bind:value={password}
+		<div class="space-y-4">
+			<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+			<form method="POST" action="?/signup" use:enhance={handleSignUp}>
+				<div class="">
+					<label class="label" for="email">
+						<span>{$t('auth.email')}</span>
+					</label>
+					<input
+						bind:value={email}
+						id="email"
+						class="input"
+						type="email"
+						name="email"
+						autocomplete="email"
+						required
+						placeholder={$t('auth.emailPlace')}
 					/>
-					<div class="">
-						<label class="label" for="password">
-							<span>{$t('auth.pwdConfirm')}</span>
-						</label>
-						<input
-							bind:value={passwordConfirm}
-							class="input"
-							type="password"
-							name="passwordConfirm"
-							placeholder={$t('auth.pwdConfirm')}
-							required
-						/>
-					</div>
+				</div>
 
-					<div class="flex justify-between pt-1">
-						<!-- type="submit" -->
-						<a href="/auth/login" class="btn min-w-[100px] capitalize variant-filled-surface">
-							{$t('common.cancel')}
-						</a>
+				<InputPasswordStrenght
+					name="password"
+					label={$t('auth.pwd')}
+					placeholder={$t('auth.pwd')}
+					bind:value={password}
+				/>
+				<div class="">
+					<label class="label" for="password">
+						<span>{$t('auth.pwdConfirm')}</span>
+					</label>
+					<input
+						bind:value={passwordConfirm}
+						class="input"
+						type="password"
+						name="passwordConfirm"
+						placeholder={$t('auth.pwdConfirm')}
+						required
+					/>
+				</div>
 
-						<button
-							disabled={loading}
-							type="submit"
-							class="btn min-w-[100px] variant-filled-secondary"
-						>
-							{#if loading}
-								<ProgressRadial width="w-6" />
-							{:else}
-								{$t('auth.singupConf')}
-							{/if}
-						</button>
-					</div>
-				</form>
-			</div>
+				<div class="flex justify-between pt-1">
+					<!-- type="submit" -->
+					<a href="/auth/login" class="btn min-w-[100px] capitalize variant-ghost-surface">
+						{$t('common.cancel')}
+					</a>
+
+					<button
+						disabled={loading}
+						type="submit"
+						class="btn min-w-[100px] variant-ghost-secondary"
+					>
+						{#if loading}
+							<ProgressRadial width="w-6" />
+						{:else}
+							{$t('auth.singupConf')}
+						{/if}
+					</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
