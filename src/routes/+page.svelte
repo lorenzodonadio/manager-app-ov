@@ -9,4 +9,6 @@
 			<OvLogo />
 		</div>
 	</a>
+
+	<a class="btn variant-ghost-primary" href="/auth/login">Log in</a>
 </div>
