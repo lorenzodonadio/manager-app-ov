@@ -8,7 +8,7 @@
 
 <div class="field col-span-6 relative" style="--colSpan: {colSpan}">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<label on:click|preventDefault for={label} class="label">{label}</label>
+	<label for={label} class="label">{label}</label>
 
 	<input
 		on:change
@@ -18,7 +18,6 @@
 		type="password"
 		name={label}
 		id={label}
-		autocomplete="password"
 		class="input"
 	/>
 	<div class="absolute top-2 right-3">

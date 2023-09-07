@@ -55,7 +55,7 @@
 		type="password"
 		name={label}
 		id={label}
-		autocomplete="password"
+		autocomplete="new-password"
 		class="input"
 	/>
 	{#if value.length > 0 && value.length < MIN_LEN}

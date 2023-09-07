@@ -81,9 +81,16 @@
 
 					<div class="flex justify-between">
 						<button
+							disabled={loading}
 							on:click={handleResetPassword}
-							class="btn min-w-[100px] capitalize variant-filled-primary">{$t('auth.reset')}</button
+							class="btn min-w-[100px] capitalize variant-filled-primary"
 						>
+							{#if loading}
+								<ProgressRadial width="w-6" />
+							{:else}
+								{$t('auth.reset')}
+							{/if}
+						</button>
 						<button
 							on:click={() => (showResetPassword = false)}
 							type="submit"
