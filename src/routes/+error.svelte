@@ -12,10 +12,8 @@
   ```
 -->
 <main class="container h-full flex flex-col justify-center items-center space-y-4">
-	<div class="flex">
-		<div class="animate-ping">
-			<OvLogo />
-		</div>
+	<div class="flex space-x-4">
+		<OvLogo />
 		<h1 class="h1 text-error-200-700-token">{$page.status}</h1>
 	</div>
 	{#if $page.error}

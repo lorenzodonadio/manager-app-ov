@@ -1,5 +1,5 @@
 {
-	"name": "Openversum Manager App",
+	"name": "openversum_manager_app",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -15,7 +15,7 @@
 		"@skeletonlabs/skeleton": "2.0.0",
 		"@skeletonlabs/tw-plugin": "0.1.0",
 		"@sveltejs/adapter-auto": "^2.1.0",
-		"@sveltejs/kit": "^1.24.0",
+		"@sveltejs/kit": "^1.24.1",
 		"@tailwindcss/forms": "0.5.6",
 		"@tailwindcss/typography": "0.5.9",
 		"@types/leaflet": "^1.9.4",
@@ -29,8 +29,7 @@
 		"tailwindcss": "3.3.3",
 		"tslib": "^2.6.2",
 		"typescript": "^5.2.2",
-		"vite": "^4.4.9",
-		"vite-plugin-tailwind-purgecss": "0.1.3"
+		"vite": "^4.4.9"
 	},
 	"type": "module",
 	"dependencies": {
