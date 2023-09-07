@@ -1,5 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import OvLogo from '$lib/components/SVG/OVLogo.svelte';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		goto('/auth/login');
+	});
 </script>
 
 <!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
@@ -9,6 +15,4 @@
 			<OvLogo />
 		</div>
 	</a>
-
-	<a class="btn variant-ghost-primary" href="/auth/login">Log in</a>
 </div>
