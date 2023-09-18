@@ -23,7 +23,7 @@ export const actions = {
 
 		const errorAndsignOut = async (message: string, status: number | undefined | null = null) => {
 			await supabase.auth.signOut();
-			return error(status ?? 500, { message });
+			return fail(status ?? 500, { message });
 		};
 
 		if (err) return await errorAndsignOut(err.message, err.status);

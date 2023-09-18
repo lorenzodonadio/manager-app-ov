@@ -14,7 +14,7 @@
 //     Description: Items are moved from one location to another or from one entrepreneur to another.
 //     Use: If one entrepreneur hands over stock to another entrepreneur.
 import countryToCurrency from 'country-to-currency';
-import getSymbolFromCurrency from 'currency-symbol-map';
+// import getSymbolFromCurrency from 'currency-symbol-map';
 
 export const ITEMS = ['FILTER', 'CARTRIDGE'];
 

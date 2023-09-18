@@ -34,9 +34,7 @@
 				</div>
 			{/if}
 			<p class="p">
-				Ventas en este periodo: <strong
-					>{data.currentSales.reduce((p, c) => c.number_sold + p, 0)}</strong
-				>
+				Ventas en este periodo: <strong>{data.currentTotalSales}</strong>
 			</p>
 		{/if}
 	</div>

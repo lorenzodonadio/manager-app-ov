@@ -10,13 +10,13 @@
 
 <SlotModal {fullWidth} on:closeModal>
 	<div class="card">
-		<div class="border-b py-4 pl-6 flex gap-2">
+		<div class="border-b py-3 pl-4 flex gap-2">
 			<slot name="badge" />
 			<h4 class="h4">{title}</h4>
 		</div>
-		<div class={$$slots.footer ? 'p-6 pb-2' : 'p-6'}>
+		<div class={$$slots.footer ? 'p-4 pb-2' : 'p-4'}>
 			{#if includeClose}
-				<div class="absolute origin-top-right top-4 right-2">
+				<div class="absolute origin-top-right top-3 right-2">
 					<CloseButton size={6} on:click={() => dispatch('closeModal')} />
 				</div>
 			{/if}
@@ -24,7 +24,7 @@
 			<slot />
 		</div>
 		{#if $$slots.footer}
-			<div class="border-t p-4">
+			<div class="border-t p-3">
 				<slot name="footer" />
 			</div>
 		{/if}

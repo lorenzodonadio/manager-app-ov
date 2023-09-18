@@ -76,7 +76,7 @@
 				<img
 					class="h-24 w-h-24 rounded-full"
 					alt="profile"
-					src="https://blbosiccwkpntqobciwj.supabase.co/storage/v1/object/public/openversum-images/app/default_avatar_openversum.png"
+					src="/assets/default_avatar_openversum.png"
 				/>
 			</div>
 			<div class="flex mx-auto col-span-6 text-sm pb-2">
@@ -99,7 +99,7 @@
 				<img
 					class="h-24 w-h-24 rounded-full"
 					alt="profile"
-					src="https://blbosiccwkpntqobciwj.supabase.co/storage/v1/object/public/openversum-images/app/default_avatar_openversum.png"
+					src="/assets/default_avatar_openversum.png"
 				/>
 			</div>
 

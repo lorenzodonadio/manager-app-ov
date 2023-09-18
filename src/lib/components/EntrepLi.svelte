@@ -1,13 +1,16 @@
 <script lang="ts">
-	// import { locations } from '$lib/stores/locationsStore';
-	// import { managerSupplies } from '$lib/stores/managerSuppliesStore';
 	import type { EntrepProfile, Profiles, Locations } from '$lib/types/sbTypes';
-	import { parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
+	import { daysUntil, parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
 
 	export let entrep: EntrepProfile;
 	export let manager: Profiles['Row'] | undefined;
 	export let location: Locations['Row'] | undefined;
 	const name = `${entrep.first_name ?? ''} ${entrep.last_name ?? ''}`;
+
+	const showInventCheckButton =
+		entrep.latestTransaction &&
+		!entrep.isTransactionComplete &&
+		(daysUntil(entrep?.latestTransaction?.schedule_check_date) ?? 0) <= 7;
 </script>
 
 <li class="py-1">
@@ -16,6 +19,12 @@
 			<div class="">
 				<p>{name}</p>
 				<p>{entrep.email}</p>
+				{#if showInventCheckButton}
+					<a
+						class="btn btn-sm variant-ghost-warning animate-pulse pt-1"
+						href="/manager-hub/entrep/{entrep.id}/inventory">Realiza chequeo de inventario</a
+					>
+				{/if}
 			</div>
 
 			{#if entrep.inventory_request}

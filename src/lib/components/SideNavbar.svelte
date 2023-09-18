@@ -55,7 +55,7 @@
 					<img
 						class="h-6 w-6 rounded-full"
 						alt="profile"
-						src="https://blbosiccwkpntqobciwj.supabase.co/storage/v1/object/public/openversum-images/app/default_avatar_openversum.png"
+						src="/assets/default_avatar_openversum.png"
 					/>
 
 					<span class="truncate pl-2 text-lg w-full text-center">{$t('common.yourProfile')}</span>

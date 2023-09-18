@@ -28,6 +28,9 @@
 			<div class="flex items-center h-5">
 				<input
 					on:change={() => handleSelect(opt)}
+					on:keydown={(e) => {
+						if (e.key === 'Enter') handleSelect(opt);
+					}}
 					checked={selected.includes(opt)}
 					id={opt}
 					type="checkbox"

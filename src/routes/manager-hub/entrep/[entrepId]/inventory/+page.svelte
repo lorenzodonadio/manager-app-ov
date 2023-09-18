@@ -8,6 +8,7 @@
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
 	export let data: PageData;
+
 	const supabase = data.supabase;
 	let avFilters = data.availibleFilters;
 	let showGiveFiltersModal = false;
@@ -46,45 +47,46 @@
 {/if}
 
 <div class="card p-1 sm:p-3">
-	<div class="flex justify-between my-auto">
-		<div class="space-y-2">
-			<h5 class="h5">Inventario:</h5>
+	<div class="space-y-2">
+		<h5 class="h5">Inventario:</h5>
+		<div class="flex justify-between">
 			<p class="transition-all">Filtros disponibles: <strong>{avFilters}</strong></p>
-			<div class="">
-				<!-- isTransactionComplete: means latest transaction complete,
+			<!-- isTransactionComplete: means latest transaction complete,
 					so if its true it means the entrepreneur can receive more inventory,
 					if its false we disable the inventory sending -->
-				<button
-					disabled={!data.entrepProfile.isTransactionComplete}
-					class:opacity-70={!data.entrepProfile.isTransactionComplete}
-					class="btn btn-sm variant-ghost-primary"
-					on:click={() => (showGiveFiltersModal = true)}>+ Entrega de Filtros</button
-				>
-				{#if !data.entrepProfile.isTransactionComplete}
-					<p class="text-sm py-1">
-						Se debe realizar el chequeo de inventario para poder efectuar la proxima entrega de
-						filtros
-					</p>
-				{/if}
+			<button
+				disabled={!data.entrepProfile.isTransactionComplete}
+				class:opacity-70={!data.entrepProfile.isTransactionComplete}
+				class="btn btn-sm variant-ghost-primary"
+				on:click={() => (showGiveFiltersModal = true)}>+ Entrega de Filtros</button
+			>
+		</div>
+		{#if !data.entrepProfile.isTransactionComplete}
+			<p class="text-sm py-1">
+				Se debe realizar el chequeo de inventario para poder efectuar la proxima entrega de filtros
+			</p>
+			<p class="text-sm py-1">
+				Para realizar el chequeo de inventario se debe esperar la fecha agendada o que se vendan
+				todos los filtros
+			</p>
+		{/if}
+	</div>
+	{#if data.entrepProfile.inventory_request}
+		<div class="">
+			<div class="my-auto space-y-2">
+				<p class="badge variant-ringed-secondary">
+					Pedido de {data.entrepProfile.inventory_request.quantity} Filtros
+				</p>
+				<p>Notas: {data.entrepProfile.inventory_request.notes}</p>
+				<p>Fecha: {parseDateToMonthDayYear(data.entrepProfile.inventory_request.created_at)}</p>
 			</div>
 		</div>
-		<div class="">
-			{#if data.entrepProfile.inventory_request}
-				<div class="my-auto space-y-2">
-					<p class="badge variant-ringed-secondary">
-						Pedido de {data.entrepProfile.inventory_request.quantity} Filtros
-					</p>
-					<p>Notas: {data.entrepProfile.inventory_request.notes}</p>
-					<p>Fecha: {parseDateToMonthDayYear(data.entrepProfile.inventory_request.created_at)}</p>
-				</div>
-			{/if}
-		</div>
-	</div>
+	{/if}
 
 	<h6 class="h6 mt-4 border-t py-1">Historial de Inventario:</h6>
 	<ul class="max-h-96 overflow-y-auto space-y-2">
 		{#each data.supplyTransactions as st}
-			<SupplyTransactionLi {st} {supabase} />
+			<SupplyTransactionLi totSales={data.currentTotalSales} {st} {supabase} />
 		{/each}
 	</ul>
 </div>

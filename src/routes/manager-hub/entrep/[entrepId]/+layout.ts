@@ -41,9 +41,11 @@ export const load = async ({ depends, params, parent }) => {
 	const s =
 		suppData?.filter((x) => x.item === 'FILTER').reduce((acc, s) => acc + s.quantity, 0) ?? 0;
 
+	const currentTotalSales = currentSales.reduce((p, c) => c.number_sold + p, 0);
 	return {
 		entrepSales,
 		currentSales,
+		currentTotalSales,
 		entrepProfile,
 		supplyTransactions: suppData,
 		location,
