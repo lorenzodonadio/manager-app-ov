@@ -12,7 +12,7 @@
 	$: salesToShow = showAllSales ? sales : data.currentSales;
 </script>
 
-<div class="flex justify-between py-2">
+<div class="flex justify-between py-2 h-16">
 	<div class="">
 		{#if areSalesActive && !showAllSales}
 			{#if data.entrepProfile.latestTransaction}

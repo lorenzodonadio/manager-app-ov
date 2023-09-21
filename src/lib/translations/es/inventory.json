@@ -1,0 +1,16 @@
+{
+	"howManyFilters": "¿Cuántos filtros entregas?",
+	"nextInventoryCheck": "Próximo chequeo de inventario",
+	"minDelivery": "Entrega mínima de {{minQuantity}} filtros",
+	"deliverySuccess": "Entrega de {{quantity}} filtros",
+	"unexpectedError": "Error inesperado",
+	"inventory": "Inventario",
+	"availableFilters": "Filtros disponibles",
+	"addFilterDelivery": "+ Entrega de Filtros",
+	"inventoryCheckNotice1": "Se debe realizar el chequeo de inventario para poder efectuar la proxima entrega de filtros",
+	"inventoryCheckNotice2": "Para realizar el chequeo de inventario se debe esperar la fecha agendada o que se vendan todos los filtros",
+	"filterRequest": "Pedido de {{quantity}} Filtros",
+	"notes": "Notas",
+	"date": "Fecha",
+	"inventoryHistory": "Historial de Inventario"
+}

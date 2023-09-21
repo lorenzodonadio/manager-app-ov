@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { t } from '$lib/translations';
+	import { translateSup } from '$lib/translations/suppliesTranslations';
 	import type { EntrepProfile, Profiles, Locations } from '$lib/types/sbTypes';
 	import { daysUntil, parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
 
@@ -7,10 +9,10 @@
 	export let location: Locations['Row'] | undefined;
 	const name = `${entrep.first_name ?? ''} ${entrep.last_name ?? ''}`;
 
+	// Show button if there is a transaction that is not complete and its the right time
+	const daysToDate = daysUntil(entrep?.latestTransaction?.schedule_check_date) ?? 0;
 	const showInventCheckButton =
-		entrep.latestTransaction &&
-		!entrep.isTransactionComplete &&
-		(daysUntil(entrep?.latestTransaction?.schedule_check_date) ?? 0) <= 7;
+		entrep.latestTransaction && !entrep.isTransactionComplete && daysToDate <= 0;
 </script>
 
 <li class="py-1">
@@ -21,8 +23,8 @@
 				<p>{entrep.email}</p>
 				{#if showInventCheckButton}
 					<a
-						class="btn btn-sm variant-ghost-warning animate-pulse pt-1"
-						href="/manager-hub/entrep/{entrep.id}/inventory">Realiza chequeo de inventario</a
+						class="btn btn-sm variant-ghost-warning animate-pulse mt-2"
+						href="/manager-hub/entrep/{entrep.id}/inventory">{$t('home.performInventoryCheck')}</a
 					>
 				{/if}
 			</div>
@@ -30,38 +32,39 @@
 			{#if entrep.inventory_request}
 				<div class="my-auto">
 					<p class="badge variant-ringed-secondary">
-						Pedido de {entrep.inventory_request.quantity} Filtros
+						Pedido de {entrep.inventory_request.quantity}
+						{translateSup(entrep.inventory_request.item)}
 					</p>
 				</div>
 			{/if}
 
 			{#if entrep.latestTransaction}
-				{#if entrep.isTransactionComplete}
-					<div class="my-auto">
-						<p class="badge variant-ringed-warning">Emprendedor inactivo</p>
+				<div class="my-auto space-y-0.5">
+					{#if entrep.isTransactionComplete}
+						<p class="badge variant-ringed-warning">{$t('home.inactiveEntrepreneur')}</p>
 						<p class="text-sm">
-							Ultimo pedido: {parseDateToMonthDayYear(entrep.latestTransaction.transaction_date)}
+							{$t('home.lastOrder')}: {parseDateToMonthDayYear(
+								entrep.latestTransaction.transaction_date
+							)}
 						</p>
-						<p class="text-sm">
-							Entrega: {entrep.latestTransaction.quantity}
-							{entrep.latestTransaction.item}
+					{:else}
+						<p class="badge variant-ringed-success">{$t('home.salesPeriodInProgress')}</p>
+						<p class="p text-sm">
+							{$t('home.fromDate')}: {parseDateToMonthDayYear(
+								entrep.latestTransaction.transaction_date
+							)}
 						</p>
-					</div>
-				{:else}
-					<div class="my-auto">
-						<p class="badge variant-ringed-success">Periodo de ventas en curso</p>
-						<p class="text-sm">
-							Desde: {parseDateToMonthDayYear(entrep.latestTransaction.transaction_date)}
+						<p class="p text-sm">
+							{$t('home.toDate')}: {parseDateToMonthDayYear(
+								entrep.latestTransaction.schedule_check_date
+							)}
 						</p>
-						<p class="text-sm">
-							Hasta: {parseDateToMonthDayYear(entrep.latestTransaction.schedule_check_date)}
-						</p>
-						<p class="text-sm">
-							Entrega: {entrep.latestTransaction.quantity}
-							{entrep.latestTransaction.item}
-						</p>
-					</div>
-				{/if}
+					{/if}
+					<p class="p text-sm">
+						{translateSup(entrep.latestTransaction.type)}: {entrep.latestTransaction.quantity}
+						{translateSup(entrep.latestTransaction.item)}
+					</p>
+				</div>
 			{/if}
 		</div>
 		<div class="">
@@ -70,7 +73,10 @@
 			{/if}
 
 			{#if manager}
-				<p class="text-sm pt-0.5">Manager: {manager.first_name ?? ''} {manager.last_name ?? ''}</p>
+				<p class="text-sm pt-0.5">
+					{$t('home.managerLabel')}: {manager.first_name ?? ''}
+					{manager.last_name ?? ''}
+				</p>
 			{/if}
 		</div>
 	</a>

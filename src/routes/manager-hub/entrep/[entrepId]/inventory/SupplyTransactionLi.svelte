@@ -1,83 +1,116 @@
 <script lang="ts">
+	import InventoryCheckModal from './InventoryCheckModal.svelte';
 	import { daysUntil, parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
-	import SlotModalTitle from '$lib/components/Modals/SlotModalTitle.svelte';
-	import { warnToast } from '$lib/utils/toasts';
+	import { errorToast, successToast, warnToast } from '$lib/utils/toasts';
 	import type { Database } from '$lib/types/SupabaseDefinition';
 	import type { SupabaseClient } from '@supabase/supabase-js';
-	import type { ManagerSupplies } from '$lib/types/sbTypes';
+	import type { InventoryCheck, ManagerSupplies } from '$lib/types/sbTypes';
 	import { translateSup } from '$lib/translations/suppliesTranslations';
-
+	import { invalidate } from '$app/navigation';
+	// import SolidCheckSvg from '$lib/components/SVG/SolidCheckSVG.svelte';
+	import SecondInventoryCheckModal from './SecondInventoryCheckModal.svelte';
+	import StartsInput from '$lib/components/StartsInput.svelte';
 	export let supabase: SupabaseClient<Database>;
 	export let st: ManagerSupplies;
-	export let totSales: number;
-	const getInventCheck = (st: ManagerSupplies) => {
-		if (st.inventory_checks && st.inventory_checks.length > 0) return st.inventory_checks[0];
-		return null;
-	};
-	const isTimeForCheck = (daysUntil(st.schedule_check_date) ?? 0) <= 7;
-	const areSalesComplete = totSales >= st.quantity;
+	export let avFilters: number;
+
+	const isTimeForCheck = (daysUntil(st.schedule_check_date) ?? 0) <= 5;
+	const areSalesComplete = avFilters <= 0;
 
 	let showCheckModal = false;
-	// 	type InventCheck = {
-	//     actual_check_date: string | null;
-	//     entrep_id: string;
-	//     extension_granted: boolean | null;
-	//     id: string;
-	//     is_completed: boolean | null;
-	//     manager_id: string;
-	//     notes: string | null;
-	//     second_check_date: string | null;
-	// } | null
-	let inventCheck = getInventCheck(st);
+	let showSecondCheckModal = false;
 
-	const handleYes = async () => {
-		if (!inventCheck) return;
-		await supabase
-			.from('inventory_checks')
-			.update({ is_completed: true })
-			.match({ id: inventCheck.id });
-		showCheckModal = false;
+	$: inventCheck = st.inventory_checks ? st.inventory_checks : null;
+
+	const insertInventoryCheck = async (newInvent: InventoryCheck['Insert']) => {
+		const { data, error } = await supabase.from('inventory_checks').insert(newInvent);
+
+		if (error) return errorToast(error.message);
+		successToast('common.success');
+		invalidate('managerhub:root');
 	};
 
-	const handleNo = () => {
-		warnToast('Es necesario que todos los filtros se hayan vendido');
+	const upsertInventoryCheck = async (newInvent: InventoryCheck['Insert']) => {
+		const { data, error } = await supabase.from('inventory_checks').upsert(newInvent);
+
+		if (error) return errorToast(error.message);
+		successToast('common.success');
+		invalidate('managerhub:root');
 	};
 </script>
 
-{#if showCheckModal}
-	<SlotModalTitle on:closeModal={() => (showCheckModal = false)} title="Chequeo de inventario">
-		<div class="space-y-1">
-			<p>Ventas de filtros</p>
-			<h5>Se vendieron todos los {st.quantity} {translateSup(st.item)}?</h5>
-			<p>Agendado para el: {parseDateToMonthDayYear(st.schedule_check_date)}</p>
-			<div class="flex justify-between pt-2">
-				<button on:click={handleNo} class="btn btn-sm variant-ghost-warning">No</button>
-				<button on:click={handleYes} class="btn btn-sm variant-ghost-primary">Yes</button>
-			</div>
-		</div>
-	</SlotModalTitle>
-{/if}
+<li class="md:flex justify-between border-2 rounded-xl border-surface-300-600-token px-2 py-1">
+	{#if showCheckModal}
+		<InventoryCheckModal
+			on:success={(e) => {
+				insertInventoryCheck(e.detail);
+				showCheckModal = false;
+			}}
+			on:extension={(e) => {
+				insertInventoryCheck(e.detail);
+				showCheckModal = false;
+			}}
+			on:closeModal={() => (showCheckModal = false)}
+			{st}
+		/>
+	{/if}
 
-<li class="flex justify-between border rounded-xl border-surface-300-600-token px-2 py-1">
-	<div class="space-y-1">
-		<h6 class="h6">{translateSup(st.type)} - {st.quantity} {translateSup(st.item)}</h6>
-		{#if inventCheck}
-			<p>{inventCheck.is_completed}</p>
-			<p>Notas: {inventCheck.notes}</p>
-			<p>Extension: {inventCheck.extension_granted}</p>
-			<!-- <p>Extension: {inventCheck.}</p> -->
-		{:else}
-			<p class="">Chequeo de inventario: {parseDateToMonthDayYear(st.schedule_check_date)}</p>
+	{#if showSecondCheckModal && inventCheck}
+		<SecondInventoryCheckModal
+			{inventCheck}
+			on:success={(e) => {
+				upsertInventoryCheck(e.detail);
+				showSecondCheckModal = false;
+			}}
+			on:closeModal={() => (showSecondCheckModal = false)}
+		/>
+	{/if}
 
-			<button
-				disabled={!isTimeForCheck && !areSalesComplete}
-				on:click={() => (showCheckModal = true)}
-				class="btn btn-sm variant-ghost-primary">Realizar Chequeo</button
-			>
-		{/if}
+	<div class="space-y-0.5">
+		<h5 class="h5">{translateSup(st.type)} - {st.quantity} {translateSup(st.item)}</h5>
+		<p class="">Fecha de envio: {parseDateToMonthDayYear(st.transaction_date)}</p>
+		<p class="line-clamp-5">Notas: {st.notes}</p>
 	</div>
-	<div class="">
-		<p class="text-sm">Notas: {st.notes}</p>
-		<p class="text-sm">Fecha de envio: {parseDateToMonthDayYear(st.transaction_date)}</p>
+	<div class="space-y-0.5 border-t md:border-t-0 border-surface-300-600-token md:w-96 lg:w-[450px]">
+		{#if inventCheck}
+			{#if inventCheck.is_completed}
+				<div class="flex justify-between">
+					<!-- <span class="my-auto text-green-500"><SolidCheckSvg /></span> -->
+					<h5 class="h5">Chequeo de inventario existoso</h5>
+					{#if inventCheck.rating}
+						<StartsInput stars={inventCheck.rating} readOnly={true} size={16} />
+					{/if}
+				</div>
+				<div class="flex space-x-2 my-auto">
+					<p>{parseDateToMonthDayYear(inventCheck.actual_check_date)}</p>
+					{#if inventCheck.extension_granted}
+						<p class="text-sm badge variant-ringed-tertiary">Plazo Extendido</p>
+					{/if}
+				</div>
+				<p class="line-clamp-5">Notas: {inventCheck.notes}</p>
+			{:else}
+				{@const isSecondDateReady = (daysUntil(inventCheck.second_check_date) ?? 0) <= 30}
+				<p class="flex">Chequeo de inventario Extendido</p>
+				<p>{parseDateToMonthDayYear(inventCheck.second_check_date)}</p>
+
+				<div class="flex justify-center">
+					<button
+						disabled={!isSecondDateReady && !areSalesComplete}
+						on:click={() => (showSecondCheckModal = true)}
+						class="btn btn-sm variant-ghost-primary">Realizar Segundo Chequeo</button
+					>
+				</div>
+			{/if}
+		{:else}
+			<p class="">Chequeo de inventario agendado</p>
+			<p>{parseDateToMonthDayYear(st.schedule_check_date)}</p>
+			<div class="flex justify-center">
+				<button
+					disabled={!isTimeForCheck && !areSalesComplete}
+					on:click={() => (showCheckModal = true)}
+					class="btn btn-sm variant-ghost-primary">Realizar Chequeo</button
+				>
+			</div>
+		{/if}
 	</div>
 </li>

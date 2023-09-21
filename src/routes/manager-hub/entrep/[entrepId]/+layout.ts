@@ -15,7 +15,11 @@ export const load = async ({ depends, params, parent }) => {
 	// const suppData = p.supplies.filter((x) => x.entrep_id === params.entrepId);
 	const [{ data: _entrepSales, error: salesErr }, { data: _suppData, error: suppErr }] =
 		await Promise.all([
-			p.supabase.from('filter_sales').select('*').match({ sold_by: params.entrepId }),
+			p.supabase
+				.from('filter_sales')
+				.select('*')
+				.order('created_at', { ascending: false })
+				.match({ sold_by: params.entrepId }),
 
 			p.supabase
 				.from('supplies_transaction')

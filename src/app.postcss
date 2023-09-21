@@ -10,3 +10,16 @@ html,
 body {
 	@apply h-full overflow-hidden;
 }
+
+@media (max-width: 639px) {
+	p {
+		@apply text-sm;
+	}
+}
+
+/* Apply `text-base` for medium and larger screens (By default, this is screens >= 640px in Tailwind) */
+@media (min-width: 640px) {
+	p {
+		@apply text-base;
+	}
+}

@@ -7,8 +7,8 @@
 	import GiveFiltersModal from './GiveFiltersModal.svelte';
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
+	import { t } from '$lib/translations';
 	export let data: PageData;
-
 	const supabase = data.supabase;
 	let avFilters = data.availibleFilters;
 	let showGiveFiltersModal = false;
@@ -48,26 +48,22 @@
 
 <div class="card p-1 sm:p-3">
 	<div class="space-y-2">
-		<h5 class="h5">Inventario:</h5>
+		<h5 class="h5">{$t('invent.inventory')}</h5>
 		<div class="flex justify-between">
-			<p class="transition-all">Filtros disponibles: <strong>{avFilters}</strong></p>
-			<!-- isTransactionComplete: means latest transaction complete,
-					so if its true it means the entrepreneur can receive more inventory,
-					if its false we disable the inventory sending -->
+			<p class="transition-all">{$t('invent.availableFilters')} <strong>{avFilters}</strong></p>
 			<button
 				disabled={!data.entrepProfile.isTransactionComplete}
 				class:opacity-70={!data.entrepProfile.isTransactionComplete}
 				class="btn btn-sm variant-ghost-primary"
-				on:click={() => (showGiveFiltersModal = true)}>+ Entrega de Filtros</button
+				on:click={() => (showGiveFiltersModal = true)}>{$t('invent.addFilterDelivery')}</button
 			>
 		</div>
 		{#if !data.entrepProfile.isTransactionComplete}
 			<p class="text-sm py-1">
-				Se debe realizar el chequeo de inventario para poder efectuar la proxima entrega de filtros
+				{$t('invent.inventoryCheckNotice1')}
 			</p>
 			<p class="text-sm py-1">
-				Para realizar el chequeo de inventario se debe esperar la fecha agendada o que se vendan
-				todos los filtros
+				{$t('invent.inventoryCheckNotice2')}
 			</p>
 		{/if}
 	</div>
@@ -75,18 +71,22 @@
 		<div class="">
 			<div class="my-auto space-y-2">
 				<p class="badge variant-ringed-secondary">
-					Pedido de {data.entrepProfile.inventory_request.quantity} Filtros
+					{$t('invent.filterRequest', { quantity: data.entrepProfile.inventory_request.quantity })}
 				</p>
-				<p>Notas: {data.entrepProfile.inventory_request.notes}</p>
-				<p>Fecha: {parseDateToMonthDayYear(data.entrepProfile.inventory_request.created_at)}</p>
+				<p>{$t('invent.notes')}: {data.entrepProfile.inventory_request.notes}</p>
+				<p>
+					{$t('invent.date')}: {parseDateToMonthDayYear(
+						data.entrepProfile.inventory_request.created_at
+					)}
+				</p>
 			</div>
 		</div>
 	{/if}
 
-	<h6 class="h6 mt-4 border-t py-1">Historial de Inventario:</h6>
+	<h6 class="h6 mt-4 border-t py-1">{$t('invent.inventoryHistory')}</h6>
 	<ul class="max-h-96 overflow-y-auto space-y-2">
 		{#each data.supplyTransactions as st}
-			<SupplyTransactionLi totSales={data.currentTotalSales} {st} {supabase} />
+			<SupplyTransactionLi avFilters={data.availibleFilters} {st} {supabase} />
 		{/each}
 	</ul>
 </div>

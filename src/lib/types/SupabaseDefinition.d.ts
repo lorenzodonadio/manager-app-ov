@@ -176,6 +176,12 @@ export interface Database {
             columns: ["added_by"]
             referencedRelation: "users"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entrep_questions_id_fkey"
+            columns: ["id"]
+            referencedRelation: "filter_sales"
+            referencedColumns: ["id"]
           }
         ]
       }
@@ -313,6 +319,7 @@ export interface Database {
           is_completed: boolean | null
           manager_id: string
           notes: string | null
+          rating: number | null
           second_check_date: string | null
         }
         Insert: {
@@ -323,6 +330,7 @@ export interface Database {
           is_completed?: boolean | null
           manager_id: string
           notes?: string | null
+          rating?: number | null
           second_check_date?: string | null
         }
         Update: {
@@ -333,6 +341,7 @@ export interface Database {
           is_completed?: boolean | null
           manager_id?: string
           notes?: string | null
+          rating?: number | null
           second_check_date?: string | null
         }
         Relationships: [
@@ -845,6 +854,12 @@ export interface Database {
             foreignKeyName: "water_q_added_by_fkey"
             columns: ["added_by"]
             referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "water_q_id_fkey"
+            columns: ["id"]
+            referencedRelation: "filter_sales"
             referencedColumns: ["id"]
           }
         ]

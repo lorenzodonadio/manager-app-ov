@@ -11,7 +11,7 @@ export type InventoryCheck = Database['public']['Tables']['inventory_checks'];
 export type SupplyTransaction = Database['public']['Tables']['supplies_transaction'];
 
 export type ManagerSupplies = SupplyTransaction['Row'] & {
-	inventory_checks?: InventoryCheck['Row'][] | null | undefined;
+	inventory_checks?: InventoryCheck['Row'] | null | undefined;
 };
 
 export type EntrepProfile = Profiles['Row'] & {

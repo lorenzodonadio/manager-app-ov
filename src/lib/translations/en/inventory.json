@@ -1,0 +1,16 @@
+{
+	"howManyFilters": "How many filters do you deliver?",
+	"nextInventoryCheck": "Next inventory check",
+	"minDelivery": "Minimum delivery of {{minQuantity}} filters",
+	"deliverySuccess": "Delivery of {{quantity}} filters",
+	"unexpectedError": "Unexpected error",
+	"inventory": "Inventory",
+	"availableFilters": "Available filters",
+	"addFilterDelivery": "+ Filter delivery",
+	"inventoryCheckNotice1": "An inventory check must be carried out in order to make the next filter delivery.",
+	"inventoryCheckNotice2": "To perform the inventory check, you must wait for the scheduled date or when all filters are sold.",
+	"filterRequest": "Request for {{quantity}} Filters",
+	"notes": "Notes",
+	"date": "Date",
+	"inventoryHistory": "Inventory History:"
+}

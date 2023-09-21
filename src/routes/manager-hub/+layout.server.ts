@@ -36,8 +36,8 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 		.from('supplies_transaction')
 		.select('* , inventory_checks ( * )')
 		.match({ manager_id: session.user.id })
-		.order('transaction_date', { ascending: false })
-		.limit(1, { foreignTable: 'inventory_checks' });
+		.order('transaction_date', { ascending: false });
+	// .limit(1, { foreignTable: 'inventory_checks' });
 	const [
 		{ data: entreps, error: err1 },
 		{ data: allProfiles, error: err2 },
@@ -53,7 +53,6 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 		supabase.from('locations').select(),
 		supabase.from('inventory_request').select('*').match({ is_completed: false })
 	]);
-
 	const entrepList: EntrepProfile[] = [];
 
 	if (entreps && entreps.length > 0) {
@@ -61,16 +60,15 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 			const p = allProfiles?.find((x) => x.id === e.entrep_id);
 			if (p) {
 				const latestTransaction = supplies?.find((x) => x.entrep_id === e.entrep_id);
-
-				const isTransactionComplete = !!latestTransaction?.inventory_checks
-					? latestTransaction.inventory_checks[0].is_completed === true
-					: false;
+				// @ts-expect-error I think is a supabase error because limit(1,...) returns object and not array
+				const isTransactionComplete = latestTransaction?.inventory_checks?.is_completed === true;
 
 				entrepList.push({
 					...p,
 					...e,
 					inventory_request: inventoryRequests?.find((x) => x.user_id === e.entrep_id),
 					is_managed_by_me: e.manager_id === session.user.id,
+					// @ts-expect-error I think is a supabase error because limit(1,...) returns object and not array
 					latestTransaction,
 					isTransactionComplete
 				});

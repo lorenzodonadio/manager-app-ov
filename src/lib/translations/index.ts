@@ -46,27 +46,9 @@ export const config = {
 		},
 		{
 			locale: 'en',
-			key: 'newsale',
-			// routes: ['/'],
-			loader: async () => (await import('./en/newSale.json')).default
-		},
-		{
-			locale: 'en',
 			key: 'profile',
 			// routes: ['/'],
 			loader: async () => (await import('./en/profile.json')).default
-		},
-		{
-			locale: 'en',
-			key: 'newcust',
-			// routes: ['/'],
-			loader: async () => (await import('./en/newCustomer.json')).default
-		},
-		{
-			locale: 'en',
-			key: 'interaction',
-			// routes: ['/'],
-			loader: async () => (await import('./en/interaction.json')).default
 		},
 		{
 			locale: 'en',
@@ -79,6 +61,12 @@ export const config = {
 			key: 'manager',
 			// routes: ['/'],
 			loader: async () => (await import('./en/manager.json')).default
+		},
+		{
+			locale: 'en',
+			key: 'invent',
+			// routes: ['/'],
+			loader: async () => (await import('./en/inventory.json')).default
 		},
 		{
 			locale: 'en',
@@ -122,30 +110,14 @@ export const config = {
 			// routes: ['/'],
 			loader: async () => (await import('./es/entrepQuestions.json')).default
 		},
-		{
-			locale: 'es',
-			key: 'newsale',
-			// routes: ['/'],
-			loader: async () => (await import('./es/newSale.json')).default
-		},
+
 		{
 			locale: 'es',
 			key: 'profile',
 			// routes: ['/'],
 			loader: async () => (await import('./es/profile.json')).default
 		},
-		{
-			locale: 'es',
-			key: 'newcust',
-			// routes: ['/'],
-			loader: async () => (await import('./es/newCustomer.json')).default
-		},
-		{
-			locale: 'es',
-			key: 'interaction',
-			// routes: ['/'],
-			loader: async () => (await import('./es/interaction.json')).default
-		},
+
 		{
 			locale: 'es',
 			key: 'yoursales',
@@ -157,6 +129,12 @@ export const config = {
 			key: 'manager',
 			// routes: ['/'],
 			loader: async () => (await import('./es/manager.json')).default
+		},
+		{
+			locale: 'es',
+			key: 'invent',
+			// routes: ['/'],
+			loader: async () => (await import('./es/inventory.json')).default
 		},
 		{
 			locale: 'es',

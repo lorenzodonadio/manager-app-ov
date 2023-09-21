@@ -2,6 +2,7 @@
 	import QuantityButtons from '$lib/components/Buttons/QuantityButtons.svelte';
 	import TextArea from '$lib/components/Inputs/TextArea.svelte';
 	import SlotModalTitle from '$lib/components/Modals/SlotModalTitle.svelte';
+	import { t } from '$lib/translations';
 	import type { Database } from '$lib/types/SupabaseDefinition';
 	import type { SupplyTransaction } from '$lib/types/sbTypes';
 	import { POSSIBLE_QTY } from '$lib/utils/constants';
@@ -45,27 +46,30 @@
 
 	const handleConfirm = async () => {
 		if (newTransaction.quantity < 1)
-			return errorToast(`Entrega minima de ${POSSIBLE_QTY[0]} Filtros`);
+			// @ts-ignore
+			return errorToast($t('minDelivery', { minQuantity: POSSIBLE_QTY[0] }));
+
 		try {
 			// newCheck.scheduled_date = calculateFutureDate(nDays);
 			const data = await addSupplyTransaction(newTransaction);
 			// await scheduleCheck(newCheck);
 			if (data) {
-				successToast(`Entrega de ${data.quantity} Filtros`);
+				// @ts-ignore
+				successToast($t('deliverySuccess', { quantity: data.quantity }));
 				dispatch('completed', data);
 			}
 		} catch (error) {
-			errorToast('Error inesperado');
+			errorToast($t('unexpectedError'));
 		}
 	};
 </script>
 
 <SlotModalTitle title="Entrega de Filtros a {name}" on:closeModal>
 	<div class="space-y-2">
-		<h5 class="-mt-4 h5">Cuantos Filtros Entregas?</h5>
+		<h5 class="-mt-4 h5">{$t('invent.howManyFilters')}</h5>
 		<QuantityButtons bind:quantity={newTransaction.quantity} />
 		<h5 class="h5 py-2">
-			Proximo chequeo de inventario:
+			{$t('invent.nextInventoryCheck')}:
 			<strong>{parseDateToMonthDayYear(scheduleDate)}</strong>
 		</h5>
 
@@ -73,7 +77,11 @@
 	</div>
 
 	<div slot="footer" class="flex justify-between">
-		<button class="btn variant-ringed" on:click={() => dispatch('closeModal')}>Cancelar</button>
-		<button class="btn variant-ghost-primary" on:click={handleConfirm}>Confirmar</button>
+		<button class="btn capitalize variant-ringed" on:click={() => dispatch('closeModal')}
+			>{$t('common.cancel')}</button
+		>
+		<button class="btn capitalize variant-ghost-primary" on:click={handleConfirm}
+			>{$t('common.confirm')}</button
+		>
 	</div>
 </SlotModalTitle>
