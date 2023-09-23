@@ -20,6 +20,7 @@ const TRANSLATIONS = {
 
 export const translateSup = (s: string) => {
 	const l = get(locale) ?? 'en';
+	// @ts-ignore
 	const t = TRANSLATIONS[l][s];
 	if (t) return t;
 	return s;

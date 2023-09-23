@@ -11,13 +11,14 @@
 	// import SolidCheckSvg from '$lib/components/SVG/SolidCheckSVG.svelte';
 	import SecondInventoryCheckModal from './SecondInventoryCheckModal.svelte';
 	import StartsInput from '$lib/components/StartsInput.svelte';
+	import { t } from '$lib/translations';
 	const dispatch = createEventDispatcher();
 
 	export let supabase: SupabaseClient<Database>;
 	export let st: ManagerSupplies;
 	export let avFilters: number;
 
-	const isTimeForCheck = (daysUntil(st.schedule_check_date) ?? 0) <= 5;
+	const isTimeForCheck = (daysUntil(st.schedule_check_date) ?? 0) <= 0;
 	const areSalesComplete = avFilters <= 0;
 
 	let showCheckModal = false;
@@ -29,7 +30,7 @@
 		const { data, error } = await supabase.from('inventory_checks').insert(newInvent);
 
 		if (error) return errorToast(error.message);
-		successToast('common.success');
+		successToast($t('common.success'));
 		invalidate('managerhub:root');
 	};
 
@@ -37,7 +38,7 @@
 		const { data, error } = await supabase.from('inventory_checks').upsert(newInvent);
 
 		if (error) return errorToast(error.message);
-		successToast('common.success');
+		successToast($t('common.success'));
 		invalidate('managerhub:root');
 	};
 </script>

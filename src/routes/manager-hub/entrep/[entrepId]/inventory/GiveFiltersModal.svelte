@@ -55,7 +55,7 @@
 			// await scheduleCheck(newCheck);
 			if (data) {
 				// @ts-ignore
-				successToast($t('deliverySuccess', { quantity: data.quantity }));
+				successToast($t('invent.deliverySuccess', { quantity: data.quantity }));
 				dispatch('completed', data);
 			}
 		} catch (error) {

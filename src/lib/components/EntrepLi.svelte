@@ -12,7 +12,7 @@
 	// Show button if there is a transaction that is not complete and its the right time
 	const daysToDate = daysUntil(entrep?.latestTransaction?.schedule_check_date) ?? 0;
 	const showInventCheckButton =
-		entrep.latestTransaction && !entrep.isTransactionComplete && daysToDate <= 0;
+		entrep.latestTransaction && !entrep.isTransactionComplete && daysToDate <= 3;
 </script>
 
 <li class="py-1">
@@ -23,20 +23,28 @@
 				<p>{entrep.email}</p>
 				{#if showInventCheckButton}
 					<a
-						class="btn btn-sm variant-ghost-warning animate-pulse mt-2"
+						class="btn btn-sm variant-ghost-warning mt-2"
 						href="/manager-hub/entrep/{entrep.id}/inventory">{$t('home.performInventoryCheck')}</a
+					>
+				{/if}
+
+				{#if entrep.inventory_request}
+					<a
+						class="btn btn-sm variant-ghost-warning mt-2"
+						href="/manager-hub/entrep/{entrep.id}/inventory"
+						>{$t('invent.filterRequest', { quantity: entrep.inventory_request.quantity })}</a
 					>
 				{/if}
 			</div>
 
-			{#if entrep.inventory_request}
+			<!-- {#if entrep.inventory_request}
 				<div class="my-auto">
 					<p class="badge variant-ringed-secondary">
 						Pedido de {entrep.inventory_request.quantity}
 						{translateSup(entrep.inventory_request.item)}
 					</p>
 				</div>
-			{/if}
+			{/if} -->
 
 			{#if entrep.latestTransaction}
 				<div class="my-auto space-y-0.5">

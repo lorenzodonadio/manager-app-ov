@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { translateSup } from '$lib/translations/suppliesTranslations';
 	import { parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
 	export let data;
 </script>
@@ -22,8 +23,17 @@
 	{#if data.entrepProfile.latestTransaction && !data.entrepProfile.isTransactionComplete}
 		<div class="card p-2 sm:p-3">
 			<h4 class="h4">Periodo de ventas en curso</h4>
-			<p>Ventas en este periodo:</p>
-			<p>Total: {data.currentSales.reduce((p, c) => c.number_sold + p, 0)}</p>
+			<p>
+				Entrega: <strong
+					>{data.entrepProfile.latestTransaction.quantity}
+					{translateSup(data.entrepProfile.latestTransaction.item)}</strong
+				>
+			</p>
+			<p>
+				Ventas en este periodo: <strong
+					>{data.currentSales.reduce((p, c) => c.number_sold + p, 0)}</strong
+				>
+			</p>
 			<p class="transition-all">Filtros disponibles: <strong>{data.availibleFilters}</strong></p>
 
 			<div class="flex space-x-4">
@@ -32,10 +42,6 @@
 				</p>
 				<p class="text-sm">
 					Hasta: {parseDateToMonthDayYear(data.entrepProfile.latestTransaction.schedule_check_date)}
-				</p>
-				<p class="text-sm">
-					Entrega: {data.entrepProfile.latestTransaction.quantity}
-					{data.entrepProfile.latestTransaction.item}
 				</p>
 			</div>
 		</div>
