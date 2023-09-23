@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { calculateFutureDate, parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
 	import SlotModalTitle from '$lib/components/Modals/SlotModalTitle.svelte';
-	import { warnToast } from '$lib/utils/toasts';
+	import { errorToast, successToast, warnToast } from '$lib/utils/toasts';
 	import type { InventoryCheck, ManagerSupplies } from '$lib/types/sbTypes';
 	import { translateSup } from '$lib/translations/suppliesTranslations';
 	import TextArea from '$lib/components/Inputs/TextArea.svelte';
@@ -29,6 +29,8 @@
 		warnToast(
 			'Por favor contactar al equipo de Openversum, para realizar la devolucion de inventario'
 		);
+
+		dispatch('failedCheck');
 	};
 </script>
 

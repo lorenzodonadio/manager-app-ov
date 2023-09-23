@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { DEFAULT_COUNTRY } from '$lib/utils/constants';
-import type { EntrepProfile } from '$lib/types/sbTypes';
+import type { EntrepProfile, ManagerSupplies } from '$lib/types/sbTypes';
 
 export const load = async ({ depends, locals: { supabase, getSession } }) => {
 	depends('managerhub:root');
@@ -36,7 +36,8 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 		.from('supplies_transaction')
 		.select('* , inventory_checks ( * )')
 		.match({ manager_id: session.user.id })
-		.order('transaction_date', { ascending: false });
+		.order('transaction_date', { ascending: false })
+		.returns<ManagerSupplies[]>();
 	// .limit(1, { foreignTable: 'inventory_checks' });
 	const [
 		{ data: entreps, error: err1 },
@@ -60,7 +61,6 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 			const p = allProfiles?.find((x) => x.id === e.entrep_id);
 			if (p) {
 				const latestTransaction = supplies?.find((x) => x.entrep_id === e.entrep_id);
-				// @ts-expect-error I think is a supabase error because limit(1,...) returns object and not array
 				const isTransactionComplete = latestTransaction?.inventory_checks?.is_completed === true;
 
 				entrepList.push({
@@ -68,7 +68,6 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 					...e,
 					inventory_request: inventoryRequests?.find((x) => x.user_id === e.entrep_id),
 					is_managed_by_me: e.manager_id === session.user.id,
-					// @ts-expect-error I think is a supabase error because limit(1,...) returns object and not array
 					latestTransaction,
 					isTransactionComplete
 				});

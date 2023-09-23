@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import InventoryCheckModal from './InventoryCheckModal.svelte';
 	import { daysUntil, parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
 	import { errorToast, successToast, warnToast } from '$lib/utils/toasts';
@@ -10,6 +11,8 @@
 	// import SolidCheckSvg from '$lib/components/SVG/SolidCheckSVG.svelte';
 	import SecondInventoryCheckModal from './SecondInventoryCheckModal.svelte';
 	import StartsInput from '$lib/components/StartsInput.svelte';
+	const dispatch = createEventDispatcher();
+
 	export let supabase: SupabaseClient<Database>;
 	export let st: ManagerSupplies;
 	export let avFilters: number;
@@ -60,6 +63,10 @@
 			{inventCheck}
 			on:success={(e) => {
 				upsertInventoryCheck(e.detail);
+				showSecondCheckModal = false;
+			}}
+			on:failedCheck={() => {
+				dispatch('failedSecondCheck');
 				showSecondCheckModal = false;
 			}}
 			on:closeModal={() => (showSecondCheckModal = false)}

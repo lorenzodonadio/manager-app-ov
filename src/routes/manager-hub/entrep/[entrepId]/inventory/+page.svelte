@@ -8,6 +8,7 @@
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
 	import { t } from '$lib/translations';
+	import { sendFailedSecondCheckEmail } from '$lib/utils/emails';
 	export let data: PageData;
 	const supabase = data.supabase;
 	let avFilters = data.availibleFilters;
@@ -31,6 +32,29 @@
 		// data.supplyTransactions = [newT, ...data.supplyTransactions];
 		// data.entrepProfile.isTransactionComplete = true;
 		showGiveFiltersModal = false;
+	};
+
+	const handleFailedSecondCheck = async (st: ManagerSupplies) => {
+		const entrepName = `${data.entrepProfile.first_name} ${data.entrepProfile.last_name}`;
+		const payload = {
+			entrepName,
+			entrepEmail: data.entrepProfile.email ?? '',
+			entrepPhone: data.entrepProfile.phone ?? '',
+			managerEmail: data.manager.email ?? '',
+			checkerName: `${data.profile?.first_name ?? ''} ${data.profile?.last_name ?? ''}`,
+			checkerEmail: data.profile?.email ?? '',
+			supplyDetails: `${st.quantity} - ${st.item}`,
+			supplyNote: st.notes ?? '',
+			firstCheckDate: st.schedule_check_date ?? '',
+			actualFirstCheckDate: st.inventory_checks?.actual_check_date ?? 'N/A',
+			failedSecondCheckDate: st.inventory_checks?.second_check_date ?? 'N/A'
+		};
+
+		const res = await sendFailedSecondCheckEmail(payload);
+		if (res.ok)
+			successToast(
+				`Se envio un correo al equipo de Openversum con exito, explicando la situacion del emprendedor ${entrepName}`
+			);
 	};
 </script>
 
@@ -86,7 +110,12 @@
 	<h6 class="h6 mt-4 border-t py-1">{$t('invent.inventoryHistory')}</h6>
 	<ul class="max-h-96 overflow-y-auto space-y-2">
 		{#each data.supplyTransactions as st}
-			<SupplyTransactionLi avFilters={data.availibleFilters} {st} {supabase} />
+			<SupplyTransactionLi
+				on:failedSecondCheck={() => handleFailedSecondCheck(st)}
+				avFilters={data.availibleFilters}
+				{st}
+				{supabase}
+			/>
 		{/each}
 	</ul>
 </div>
