@@ -12,6 +12,7 @@
 	import SecondInventoryCheckModal from './SecondInventoryCheckModal.svelte';
 	import StartsInput from '$lib/components/StartsInput.svelte';
 	import { t } from '$lib/translations';
+	import { page } from '$app/stores';
 	const dispatch = createEventDispatcher();
 
 	export let supabase: SupabaseClient<Database>;
@@ -26,12 +27,17 @@
 
 	$: inventCheck = st.inventory_checks ? st.inventory_checks : null;
 
+	const inval = () => {
+		invalidate('managerhub:root');
+		invalidate(`entrep:${$page.params.entrepId}`);
+	};
+
 	const insertInventoryCheck = async (newInvent: InventoryCheck['Insert']) => {
 		const { data, error } = await supabase.from('inventory_checks').insert(newInvent);
 
 		if (error) return errorToast(error.message);
 		successToast($t('common.success'));
-		invalidate('managerhub:root');
+		inval();
 	};
 
 	const upsertInventoryCheck = async (newInvent: InventoryCheck['Insert']) => {
@@ -39,7 +45,7 @@
 
 		if (error) return errorToast(error.message);
 		successToast($t('common.success'));
-		invalidate('managerhub:root');
+		inval();
 	};
 </script>
 
