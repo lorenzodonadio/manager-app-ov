@@ -22,15 +22,26 @@
 			.match({ id: inventReqId });
 		if (error) return errorToast('Error completando pedido, contactanos info@openversum.com');
 		data.entrepProfile.inventory_request = undefined;
-		invalidate(`entrep:${$page.data.entrepId}`);
+		invalidate(`entrep:${$page.params.entrepId}`);
 		return successToast('Pedido completado con exito');
+	};
+
+	const sendSuppliesNotification = async (userId: string) => {
+		const { data: _d, error } = await supabase.from('notification').insert({
+			user_id: userId,
+			type: 'NEW_SUPPLIES',
+			sent_by: data.session?.user.id
+		});
 	};
 
 	const handleGiveComplete = (newT: ManagerSupplies) => {
 		// avFilters += newT.quantity;
 		markRequestAsComplete(data.entrepProfile.inventory_request?.id);
+		sendSuppliesNotification($page.params.entrepId);
 		// data.supplyTransactions = [newT, ...data.supplyTransactions];
 		// data.entrepProfile.isTransactionComplete = true;
+		invalidate(`entrep:${$page.params.entrepId}`);
+		invalidate('managerhub:root');
 		showGiveFiltersModal = false;
 	};
 

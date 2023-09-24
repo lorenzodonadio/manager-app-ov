@@ -2,6 +2,7 @@
 	import QuantityButtons from '$lib/components/Buttons/QuantityButtons.svelte';
 	import TextArea from '$lib/components/Inputs/TextArea.svelte';
 	import SlotModalTitle from '$lib/components/Modals/SlotModalTitle.svelte';
+	import SpinnerSvg from '$lib/components/SVG/SpinnerSVG.svelte';
 	import { t } from '$lib/translations';
 	import type { Database } from '$lib/types/SupabaseDefinition';
 	import type { SupplyTransaction } from '$lib/types/sbTypes';
@@ -19,6 +20,8 @@
 	export let managerId: string;
 	const dispatch = createEventDispatcher();
 	const scheduleDate = calculateFutureDate().toDate();
+
+	let loading = false;
 	// TODO put defaults here from a central place
 	const newTransaction = {
 		entrep_id: entrepId,
@@ -48,7 +51,7 @@
 		if (newTransaction.quantity < 1)
 			// @ts-ignore
 			return errorToast($t('minDelivery', { minQuantity: POSSIBLE_QTY[0] }));
-
+		loading = true;
 		try {
 			// newCheck.scheduled_date = calculateFutureDate(nDays);
 			const data = await addSupplyTransaction(newTransaction);
@@ -60,6 +63,8 @@
 			}
 		} catch (error) {
 			errorToast($t('unexpectedError'));
+		} finally {
+			loading = false;
 		}
 	};
 </script>
@@ -80,8 +85,16 @@
 		<button class="btn capitalize variant-ringed" on:click={() => dispatch('closeModal')}
 			>{$t('common.cancel')}</button
 		>
-		<button class="btn capitalize variant-ghost-primary" on:click={handleConfirm}
-			>{$t('common.confirm')}</button
+		<button
+			disabled={loading}
+			class="btn capitalize variant-ghost-primary"
+			on:click={handleConfirm}
 		>
+			{#if loading}
+				<SpinnerSvg />
+			{:else}
+				{$t('common.confirm')}
+			{/if}
+		</button>
 	</div>
 </SlotModalTitle>
