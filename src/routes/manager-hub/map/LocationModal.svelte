@@ -174,7 +174,13 @@
 							</div>
 							<ul class="max-h-96 overflow-y-auto space-y-1">
 								<li><h6>{$t('map.invited')}</h6></li>
-								<!-- Rest of the code -->
+								{#each $page.data.futureEntrep.filter((x) => x.location_id === selectedLocation?.id) as entrep}
+									<InvitedEntrepLi {entrep} />
+								{/each}
+								<li><h6>{$t('map.active')}</h6></li>
+								{#each $page.data.entrepList.filter((x) => x.location_id === selectedLocation?.id) as entrep}
+									<ActiveEntrepLi {entrep} />
+								{/each}
 							</ul>
 						</div>
 					{/if}
