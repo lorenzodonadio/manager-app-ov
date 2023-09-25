@@ -5,5 +5,11 @@
 	"inviteEntrep": "Invitar a un emprendedor/a",
 	"newEntrepEmail": "Correo del nuevo/a emprendedor",
 	"nosales": "No hay ventas registradas de este emprededor/a",
-	"searchEntrep": "Busca emprendedor por nombre o email"
+	"searchEntrep": "Busca emprendedor por nombre o email",
+	"invalidEmail": "Email inválido.",
+	"invitationExists": "Ya existe una invitación con este email.",
+	"userExists": "Ya existe un usuario con este email.",
+	"nameRequired": "Nombre es obligatorio.",
+	"alreadyInvited": "Emprendedor ya fue invitado.",
+	"invited": "Invitado "
 }

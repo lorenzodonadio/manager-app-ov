@@ -5,5 +5,11 @@
 	"inviteEntrep": "Invite a new entrepreneur",
 	"newEntrepEmail": "New entrepreneur email",
 	"nosales": "There are no sales recorded for this entrepreneur",
-	"searchEntrep": "Search an entrepreneur by name, or email"
+	"searchEntrep": "Search an entrepreneur by name, or email",
+	"invalidEmail": "Invalid email.",
+	"invitationExists": "An invitation with this email already exists.",
+	"userExists": "A user with this email already exists.",
+	"nameRequired": "Name is required.",
+	"alreadyInvited": "Entrepreneur has already been invited.",
+	"invited": "Invited "
 }

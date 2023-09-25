@@ -27,19 +27,19 @@
 		isLoading = true;
 		if (!isEmailValid) {
 			isLoading = false;
-			return errorToast('Email Invalido');
+			return errorToast($t('toasts.invalidEmail'));
 		}
 		if ($page.data.futureEntrep.map((x) => x.email).includes(newEntrepEmail)) {
 			isLoading = false;
-			return errorToast('Ya existe una invitacion con este email');
+			return errorToast($t('toasts.invitationExists'));
 		}
 		if ($page.data.profileEmailSet.has(newEntrepEmail)) {
 			isLoading = false;
-			return errorToast('Ya existe un usuario con este email');
+			return errorToast($t('toasts.userExists'));
 		}
 		if (firstName === '') {
 			isLoading = false;
-			return errorToast('Nombre es obligatorio');
+			return errorToast($t('toasts.nameRequired'));
 		}
 
 		const { data, error } = await $page.data.supabase
@@ -52,33 +52,39 @@
 				last_name: lastName,
 				country_code: managerCountryCode ?? DEFAULT_COUNTRY
 			})
-			.select();
+			.select()
+			.maybeSingle();
 
 		if (error) {
 			if (error.code === '23505') {
-				errorToast('Emprendedor ya fue invitado');
+				errorToast($t('toasts.alreadyInvited'));
 			} else {
 				errorToast(error.message);
 			}
 		}
 
-		if (data && data.length > 0) {
-			// dispatch('invite', { newInvite: data[0] });
-			successToast(`Invited ${data[0].email}`);
-			dispatch('invite', data[0]);
+		if (data) {
+			successToast(`${$t('toasts.invited')}:  ${data.email}`);
+			dispatch('invite', data);
 		}
 
 		isLoading = false;
 	};
-
-	// console.log(data);
 </script>
 
 <div class="space-y-2">
 	<h5 class="h5">{$t('manager.inviteEntrep')}</h5>
 	<form on:submit|preventDefault={handleAddEntrep} class="grid grid-cols-9 gap-2">
-		<InputField placeholder="Nombre" label="Nombre *" bind:value={firstName} />
-		<InputField placeholder="Nombre" label="Apellido" bind:value={lastName} />
+		<InputField
+			placeholder={$t('common.name')}
+			label={$t('common.name') + ' *'}
+			bind:value={firstName}
+		/>
+		<InputField
+			placeholder={$t('common.lastName')}
+			label={$t('common.lastName')}
+			bind:value={lastName}
+		/>
 		<InputFieldEmail
 			bind:isValid={isEmailValid}
 			bind:value={newEntrepEmail}
