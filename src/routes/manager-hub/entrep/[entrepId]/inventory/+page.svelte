@@ -36,7 +36,7 @@
 		});
 	};
 	const handleGiveComplete = (newT: ManagerSupplies) => {
-		// avFilters += newT.quantity;
+		avFilters += newT.quantity;
 		markRequestAsComplete(data.entrepProfile.inventory_request?.id);
 		sendSuppliesNotification($page.params.entrepId);
 		// data.supplyTransactions = [newT, ...data.supplyTransactions];
