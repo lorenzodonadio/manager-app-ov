@@ -27,19 +27,19 @@
 		isLoading = true;
 		if (!isEmailValid) {
 			isLoading = false;
-			return errorToast($t('toasts.invalidEmail'));
+			return errorToast($t('manager.invalidEmail'));
 		}
 		if ($page.data.futureEntrep.map((x) => x.email).includes(newEntrepEmail)) {
 			isLoading = false;
-			return errorToast($t('toasts.invitationExists'));
+			return errorToast($t('manager.invitationExists'));
 		}
 		if ($page.data.profileEmailSet.has(newEntrepEmail)) {
 			isLoading = false;
-			return errorToast($t('toasts.userExists'));
+			return errorToast($t('manager.userExists'));
 		}
 		if (firstName === '') {
 			isLoading = false;
-			return errorToast($t('toasts.nameRequired'));
+			return errorToast($t('manager.nameRequired'));
 		}
 
 		const { data, error } = await $page.data.supabase
@@ -57,14 +57,14 @@
 
 		if (error) {
 			if (error.code === '23505') {
-				errorToast($t('toasts.alreadyInvited'));
+				errorToast($t('manager.alreadyInvited'));
 			} else {
 				errorToast(error.message);
 			}
 		}
 
 		if (data) {
-			successToast(`${$t('toasts.invited')}:  ${data.email}`);
+			successToast(`${$t('manager.invited')}:  ${data.email}`);
 			dispatch('invite', data);
 		}
 
