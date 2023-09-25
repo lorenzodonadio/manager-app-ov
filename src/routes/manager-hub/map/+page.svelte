@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { geoPos } from '$lib/stores/positionStore';
+	import { geoPos, getPosition } from '$lib/stores/positionStore';
 	import { onDestroy } from 'svelte';
 	import { onMount } from 'svelte';
 	import ArrowLeft from '$lib/components/SVG/ArrowLeft.svelte';
@@ -29,7 +29,6 @@
 	let showLocationModal = false;
 	let lat: number, lon: number;
 	// const randNoise = (x = 0.001) => x * (2 * Math.random() - 1);
-
 	onMount(async () => {
 		if (browser) {
 			// const L = await import('leaflet');
