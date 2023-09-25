@@ -74,6 +74,18 @@ export const config = {
 			// routes: ['/'],
 			loader: async () => (await import('./en/passwordReset.json')).default
 		},
+		{
+			locale: 'en',
+			key: 'map',
+			// routes: ['/'],
+			loader: async () => (await import('./en/map.json')).default
+		},
+		{
+			locale: 'en',
+			key: 'pwReset',
+			// routes: ['/'],
+			loader: async () => (await import('./en/passwordReset.json')).default
+		},
 		// SPANISH!!!!
 		{
 			locale: 'es',
@@ -141,6 +153,12 @@ export const config = {
 			key: 'pwReset',
 			// routes: ['/'],
 			loader: async () => (await import('./es/passwordReset.json')).default
+		},
+		{
+			locale: 'es',
+			key: 'map',
+			// routes: ['/'],
+			loader: async () => (await import('./es/map.json')).default
 		}
 	]
 };

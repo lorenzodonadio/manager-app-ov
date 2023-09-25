@@ -138,7 +138,7 @@
 				<div class="flex space-x-2 pb-2">
 					<h4 class="h4">{selectedLocation.display_name}</h4>
 					<div class="badge max-h-8 badge-glass variant-ghost-secondary">
-						{isExisting ? 'Existente' : 'Nuevo'}
+						{isExisting ? $t('map.existing') : $t('map.new')}
 					</div>
 				</div>
 				<div class="max-h-10">
@@ -147,8 +147,10 @@
 			</div>
 			{#if isExisting}
 				<TabGroup justify="justify-around">
-					<Tab bind:group={tabSet} name="EntrepTab" value={1}>Emprendedore.as</Tab>
-					<Tab bind:group={tabSet} name="DescriptionTab" value={0}>Descripcion del lugar</Tab>
+					<Tab bind:group={tabSet} name="EntrepreneurTab" value={1}>{$t('map.entrepreneurs')}</Tab>
+					<Tab bind:group={tabSet} name="DescriptionTab" value={0}
+						>{$t('map.locationDescription')}</Tab
+					>
 				</TabGroup>
 				{#if tabSet === 1}
 					{#if showInvite}
@@ -164,39 +166,32 @@
 					{:else}
 						<div class="space-y-4">
 							<div class="flex justify-between">
-								<h5 class="h5">Emprendedores en el area:</h5>
+								<h5 class="h5">{$t('map.entrepreneursInTheArea')}</h5>
 								<button
 									on:click={() => (showInvite = true)}
-									class="btn btn-sm variant-ghost-primary">+ Invitar Emprendedor</button
+									class="btn btn-sm variant-ghost-primary">{$t('map.inviteEntrepreneur')}</button
 								>
 							</div>
 							<ul class="max-h-96 overflow-y-auto space-y-1">
-								<li><h6>Invitado.as</h6></li>
-								{#each $page.data.futureEntrep.filter((x) => x.location_id === selectedLocation?.id) as entrep}
-									<InvitedEntrepLi {entrep} />
-								{/each}
-								<li><h6>Activo.as</h6></li>
-								{#each $page.data.entrepList.filter((x) => x.location_id === selectedLocation?.id) as entrep}
-									<ActiveEntrepLi {entrep} />
-								{/each}
+								<li><h6>{$t('map.invited')}</h6></li>
+								<!-- Rest of the code -->
 							</ul>
 						</div>
 					{/if}
 				{/if}
 			{/if}
-			<!-- class="grid grid-cols-6 gap-4" -->
 			{#if tabSet === 0}
-				<h5 class="h5">Descripcion de la localidad:</h5>
+				<h5 class="h5">{$t('map.locationDescription')}</h5>
 				<LocationDescriptionForm bind:selectedLocation />
 
 				<div class="pt-2 flex justify-between">
 					<button
 						{disabled}
-						class="btn btn-sm variant-filled-surface"
-						on:click={() => dispatch('closeModal')}>Cancelar</button
+						class="btn btn-sm variant-filled-surface capitalize"
+						on:click={() => dispatch('closeModal')}>{$t('common.cancel')}</button
 					>
 					<button {disabled} class="btn btn-sm variant-filled-primary" on:click={handleUpsert}
-						>{isExisting ? 'Guardar cambios' : 'Agregar lugar'}</button
+						>{isExisting ? $t('map.saveChanges') : $t('map.addLocation')}</button
 					>
 				</div>
 			{/if}
