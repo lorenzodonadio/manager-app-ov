@@ -7,20 +7,11 @@
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import InfoCircle from '$lib/components/SVG/InfoCircle.svelte';
 	import { SlideToggle } from '@skeletonlabs/skeleton';
-	import { page } from '$app/stores';
 	export let data;
 	let search = '';
 	let showAllEntreps = false;
 
 	const myEntreps = data.entrepList.filter((x) => x.is_managed_by_me);
-
-	// function filterCustomers(query: string) {
-	// 	return $customer.filter((c) =>
-	// 		`${c.name ?? ''} ${c.address ?? ''} ${c.phone ?? ''} ${c.email ?? ''}`
-	// 			.toLowerCase()
-	// 			.includes(query.toLowerCase())
-	// 	);
-	// }
 
 	const getEntreps = (s: string) => {
 		const entrepsToShow = showAllEntreps ? data.entrepList : myEntreps;
@@ -41,9 +32,8 @@
 			{$t('common.of')}
 			{myEntreps.length ?? 0}
 			{$t('manager.entrep')}
-
 			<div class="pt-1.5 pl-1 relative text-sm">
-				<Tooltip tooltipMessage="Usa el mapa para invitar emprendedore.as"><InfoCircle /></Tooltip>
+				<Tooltip tooltipMessage={$t('manager.tooltipMessage')}><InfoCircle /></Tooltip>
 			</div>
 		</h5>
 		<div class="flex space-x-1 max-h-8 pl-2">
@@ -51,16 +41,15 @@
 				<a
 					class="btn btn-sm p-1 sm:p-2 text-sm sm:text-base variant-ghost-secondary"
 					href="/manager-hub/invites"
-					>{data.futureEntrep.length} Invitaciones
+					>{data.futureEntrep.length} {$t('manager.invitations')}
 				</a>
 			{/if}
-
 			<a
 				class="btn btn-sm p-1 sm:p-2 text-sm sm:text-base variant-ghost-primary"
 				href="/manager-hub/map"
 			>
 				<MapSvg size={4} />
-				<span class="mb-0.5"> Mapa </span>
+				<span class="mb-0.5"> {$t('manager.map')} </span>
 			</a>
 		</div>
 	</div>
@@ -74,7 +63,7 @@
 		<div class="my-auto w-52 flex">
 			<SlideToggle size="sm" name="slider-label" bind:checked={showAllEntreps}
 				><span class="text-xs whitespace-nowrap"
-					>{showAllEntreps ? 'Todos los emprendedores' : 'Mis emprendedores'}</span
+					>{$t(showAllEntreps ? 'manager.allEntrepreneurs' : 'manager.myEntrepreneurs')}</span
 				></SlideToggle
 			>
 		</div>
@@ -88,6 +77,6 @@
 			{/each}
 		</ul>
 	{:else}
-		<p class="text-sm py-2">Ningun emprendedor, para invitar emprendedores usa del mapa</p>
+		<p class="text-sm py-2">{$t('manager.noEntrepreneurs')}</p>
 	{/if}
 </div>

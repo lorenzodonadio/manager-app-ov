@@ -1,5 +1,11 @@
 {
 	"hello": "Hello",
+	"tooltipMessage": "Use the map to invite entrepreneurs",
+	"invitations": "Invitations",
+	"map": "Map",
+	"allEntrepreneurs": "All Entrepreneurs",
+	"myEntrepreneurs": "My Entrepreneurs",
+	"noEntrepreneurs": "No entrepreneurs found, use the map to invite entrepreneurs",
 	"entrep": "entrepreneurs",
 	"youreManager": "You are a manager",
 	"inviteEntrep": "Invite a new entrepreneur",
