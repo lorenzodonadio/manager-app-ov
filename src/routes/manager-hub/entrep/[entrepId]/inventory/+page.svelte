@@ -13,6 +13,8 @@
 	const supabase = data.supabase;
 	let avFilters = data.availibleFilters;
 	let showGiveFiltersModal = false;
+	$: disabledSupplies = avFilters <= 0 ? false : !data.entrepProfile.isTransactionComplete;
+
 	const markRequestAsComplete = async (inventReqId: string | null | undefined) => {
 		if (!inventReqId) return;
 
@@ -33,7 +35,6 @@
 			sent_by: data.session?.user.id
 		});
 	};
-	console.log(data.entrepProfile);
 	const handleGiveComplete = (newT: ManagerSupplies) => {
 		// avFilters += newT.quantity;
 		markRequestAsComplete(data.entrepProfile.inventory_request?.id);
@@ -87,8 +88,8 @@
 		<div class="flex justify-between">
 			<p class="transition-all">{$t('invent.availableFilters')} <strong>{avFilters}</strong></p>
 			<button
-				disabled={!data.entrepProfile.isTransactionComplete}
-				class:opacity-70={!data.entrepProfile.isTransactionComplete}
+				disabled={disabledSupplies}
+				class:opacity-70={disabledSupplies}
 				class="btn btn-sm variant-ghost-primary"
 				on:click={() => (showGiveFiltersModal = true)}>{$t('invent.addFilterDelivery')}</button
 			>
