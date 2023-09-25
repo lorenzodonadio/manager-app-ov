@@ -8,7 +8,7 @@
 	export let manager: Profiles['Row'] | undefined;
 	export let location: Locations['Row'] | undefined;
 	const name = `${entrep.first_name ?? ''} ${entrep.last_name ?? ''}`;
-
+	console.log(entrep);
 	// Show button if there is a transaction that is not complete and its the right time
 	const daysToDate = daysUntil(entrep?.latestTransaction?.schedule_check_date) ?? 0;
 	const showInventCheckButton =

@@ -23,6 +23,8 @@
 	};
 
 	$: entrepreneurs = getEntreps(search);
+
+	console.log(data);
 </script>
 
 <div class="max-w-5xl mx-auto">

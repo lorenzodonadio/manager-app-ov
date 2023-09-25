@@ -33,7 +33,7 @@
 			sent_by: data.session?.user.id
 		});
 	};
-
+	console.log(data.entrepProfile);
 	const handleGiveComplete = (newT: ManagerSupplies) => {
 		// avFilters += newT.quantity;
 		markRequestAsComplete(data.entrepProfile.inventory_request?.id);

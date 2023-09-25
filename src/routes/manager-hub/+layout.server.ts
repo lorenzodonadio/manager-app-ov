@@ -74,7 +74,6 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 			}
 		});
 	}
-
 	return {
 		manager,
 		profile,

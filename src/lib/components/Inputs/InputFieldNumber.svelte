@@ -18,23 +18,29 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<label for={label} class="label mb-1 capitalize">{label}</label>
 
-	<input
-		bind:this={input}
-		on:input={() => (validationMessage = input.validationMessage)}
-		on:change
-		bind:value
-		{placeholder}
-		{disabled}
-		{step}
-		type="number"
-		name={name ?? label}
-		id={label}
-		class="{validationMessage != ''
-			? 'focus:ring-red-500 focus:border-red-500 border-red-300'
-			: ''} input w-full"
-		{min}
-		{max}
-	/>
+	<div class="input-group input-group-divider grid-cols-[1fr_auto]">
+		<input
+			bind:this={input}
+			on:input={() => (validationMessage = input.validationMessage)}
+			on:change
+			bind:value
+			{placeholder}
+			{disabled}
+			{step}
+			type="number"
+			id={label}
+			class="{validationMessage != ''
+				? 'focus:ring-red-500 focus:border-red-500 border-red-300'
+				: ''} input w-full"
+			{min}
+			{max}
+		/>
+		{#if units}
+			<div class="input-group-shim">
+				<span class="my-auto mx-auto truncate">{@html units}</span>
+			</div>
+		{/if}
+	</div>
 	{#if input?.validationMessage}
 		<span class="text-red-500">{input.validationMessage}</span>
 	{/if}
