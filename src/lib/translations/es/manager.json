@@ -17,5 +17,8 @@
 	"userExists": "Ya existe un usuario con este email.",
 	"nameRequired": "Nombre es obligatorio.",
 	"alreadyInvited": "Emprendedor ya fue invitado.",
-	"invited": "Invitado "
+	"invited": "Invitado ",
+	"pendingInvites": "Invitaciones pendientes",
+	"cancelInviteTitle": "Cancelar invitacion",
+	"cancelInviteMessage": "¿Quieres cancelar la invitacion a {{email}}?"
 }

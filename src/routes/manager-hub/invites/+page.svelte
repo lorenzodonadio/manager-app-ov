@@ -5,6 +5,7 @@
 	import { errorToast } from '$lib/utils/toasts';
 	import { page } from '$app/stores';
 	import { invalidate } from '$app/navigation';
+	import { t } from '$lib/translations/index.js';
 	const modalStore = getModalStore();
 
 	export let data;
@@ -26,10 +27,11 @@
 		const modal: ModalSettings = {
 			type: 'confirm',
 			// Data
-			title: 'Cancelar invitacion',
-			body: `Quieres cancelar la invitacion a ${email} ?`,
-			buttonTextCancel: 'No',
-			buttonTextConfirm: 'Si',
+			title: $t('manager.cancelInviteTitle'),
+			// @ts-ignore
+			body: $t('manager.cancelInviteMessage', { email }),
+			buttonTextCancel: $t('common.no'),
+			buttonTextConfirm: $t('common.yes'),
 			// TRUE if confirm pressed, FALSE if cancel pressed
 			response: async (r: boolean) => {
 				if (r) {
@@ -43,7 +45,9 @@
 
 <div class="flex space-x-4 -mt-2">
 	<a class="btn" href="/manager-hub"><ArrowLeft /></a>
-	<h6 class="h6 my-auto truncate">Invitaciones pendientes: {$page.data.futureEntrep.length}</h6>
+	<h6 class="h6 my-auto truncate">
+		{$t('manager.pendingInvites')}: {$page.data.futureEntrep.length}
+	</h6>
 </div>
 
 {#if data.futureEntrep.length > 0}

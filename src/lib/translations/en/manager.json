@@ -17,5 +17,8 @@
 	"userExists": "A user with this email already exists.",
 	"nameRequired": "Name is required.",
 	"alreadyInvited": "Entrepreneur has already been invited.",
-	"invited": "Invited "
+	"invited": "Invited ",
+	"pendingInvites": "Pending invitations",
+	"cancelInviteTitle": "Cancel invitation",
+	"cancelInviteMessage": "Do you want to cancel the invitation of {{email}}?"
 }
