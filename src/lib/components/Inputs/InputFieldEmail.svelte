@@ -18,7 +18,7 @@
 
 <div class="field col-span-6 relative" style="--colSpan: {colSpan}">
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<label for={label} class="label mb-1">{label}</label>
+	<label for={label} class="label mb-1 capitalize">{label}</label>
 
 	<input
 		on:change
