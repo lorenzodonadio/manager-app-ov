@@ -62,14 +62,14 @@
 				dispatch('completed', data);
 			}
 		} catch (error) {
-			errorToast($t('unexpectedError'));
+			errorToast($t('invent.unexpectedError'));
 		} finally {
 			loading = false;
 		}
 	};
 </script>
 
-<SlotModalTitle title="Entrega de Filtros a {name}" on:closeModal>
+<SlotModalTitle title="{$t('invent.giveModalTitle')} {name}" on:closeModal>
 	<div class="space-y-2">
 		<h5 class="-mt-4 h5">{$t('invent.howManyFilters')}</h5>
 		<QuantityButtons bind:quantity={newTransaction.quantity} />

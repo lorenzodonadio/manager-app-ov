@@ -1,4 +1,5 @@
 {
+	"giveModalTitle": "Filter delivey to",
 	"howManyFilters": "How many filters do you deliver?",
 	"nextInventoryCheck": "Next inventory check",
 	"minDelivery": "Minimum delivery of {{minQuantity}} filters",

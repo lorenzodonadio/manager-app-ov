@@ -4,7 +4,7 @@
 	export let possibleQ = POSSIBLE_QTY;
 </script>
 
-<div class="min-w-[452px] flex w-full justify-around">
+<div class="flex flex-wrap w-full justify-around">
 	{#each possibleQ as qty}
 		<button
 			on:click={() => (quantity = qty)}
