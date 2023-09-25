@@ -3,12 +3,9 @@ import { filterArrByDate } from '$lib/utils/dateHelpers';
 import type { FilterSales } from '$lib/types/sbTypes';
 
 export const load = async ({ depends, params, parent }) => {
-	console.log('loadlayout');
 	depends(`entrep:${params.entrepId}`);
 	const p = await parent();
-	console.log(p.entrepList);
 	const entrepProfile = p.entrepList.find((x) => x.id === params.entrepId);
-	console.log({ entrepProfile });
 	// TODO throw an error entrep not found or something, not sure redirect is the best
 	if (!entrepProfile) throw redirect(301, '/manager-hub');
 
