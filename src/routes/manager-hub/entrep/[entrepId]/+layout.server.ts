@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { filterArrByDate } from '$lib/utils/dateHelpers';
 import type { FilterSales } from '$lib/types/sbTypes';
 
-export const load = async ({ depends, params, parent }) => {
+export const load = async ({ depends, params, parent, locals }) => {
 	depends(`entrep:${params.entrepId}`);
 	const p = await parent();
 	const entrepProfile = p.entrepList.find((x) => x.id === params.entrepId);
@@ -15,13 +15,13 @@ export const load = async ({ depends, params, parent }) => {
 	// const suppData = p.supplies.filter((x) => x.entrep_id === params.entrepId);
 	const [{ data: _entrepSales, error: salesErr }, { data: _suppData, error: suppErr }] =
 		await Promise.all([
-			p.supabase
+			locals.supabase
 				.from('filter_sales')
 				.select('*')
 				.order('created_at', { ascending: false })
 				.match({ sold_by: params.entrepId }),
 
-			p.supabase
+			locals.supabase
 				.from('supplies_transaction')
 				.select('* , inventory_checks ( * )')
 				.match({ entrep_id: params.entrepId })

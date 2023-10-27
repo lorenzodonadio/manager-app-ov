@@ -6,12 +6,16 @@
 	import { translateSup } from '$lib/translations/suppliesTranslations';
 	import TextArea from '$lib/components/Inputs/TextArea.svelte';
 	// @ts-ignore
-	import StarRating from '@ernane/svelte-star-rating';
 	import { t } from '$lib/translations';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, getContext } from 'svelte';
 	import StartsInput from '$lib/components/StartsInput.svelte';
+	import { getBonus } from '$lib/utils/bonus';
+	import { DEFAULT_CURRENCY } from '$lib/utils/constants';
 	const dispatch = createEventDispatcher();
 	export let st: ManagerSupplies;
+
+	const fitlersSold: number = getContext('currentSales');
+	const bonus = getBonus(fitlersSold);
 
 	let title = `¿Se vendieron todos los ${st.quantity} ${translateSup(st.item)}?`;
 	let step: 'initial' | 'success' | 'extension' = 'initial';
@@ -57,10 +61,14 @@
 </script>
 
 <SlotModalTitle on:closeModal {title}>
-	<div class="space-y-1 min-w-[400px] max-w-2xl">
+	<div class="space-y-1 min-w-[500px] max-w-2xl">
 		{#if step === 'initial'}
 			<h5 class="h5">Chequeo de inventario</h5>
-			<p class="p">Agendado para el: {parseDateToMonthDayYear(st.schedule_check_date)}</p>
+			<p>Agendado para el: {parseDateToMonthDayYear(st.schedule_check_date)}</p>
+			<p>
+				En el sistema se registran {fitlersSold} filtros vendidos, Se otorga un bonus de {bonus}
+				{DEFAULT_CURRENCY} por las ventas
+			</p>
 			<div class="flex justify-between pt-2">
 				<button on:click={handleNo} class="btn variant-ghost-warning">No</button>
 				<button on:click={handleYes} class="btn variant-ghost-primary">Yes</button>
@@ -74,14 +82,19 @@
 			</div>
 		{:else if step === 'extension'}
 			<p>Fecha del nuevo chequeo: {parseDateToMonthDayYear(secondScheduleDate)}</p>
-			<p class="p">
+			<p>
 				Si se vendieron parcialmente los filtros se otorgara una extension de 30 dias al emprendedor
 				para completar las ventas
 			</p>
-			<p class="p">
+			<p>
 				Si no se vendio ningun filtro se debe hablar con el equipo de Openversum y se inicia el
 				proceso de devolucion de inventario
 			</p>
+			<p>
+				En el sistema se registran {fitlersSold} filtros vendidos, Se otorga un bonus de {bonus.toString()}
+				{DEFAULT_CURRENCY} por las ventas
+			</p>
+
 			<TextArea rows={2} label={$t('common.notes')} bind:value={inventCheck.notes} />
 			<div class="flex justify-between pt-2">
 				<button on:click={handleExtensionNo} class="btn variant-ghost-warning">No</button>

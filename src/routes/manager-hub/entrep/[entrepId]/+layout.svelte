@@ -3,11 +3,17 @@
 	import ArrowLeft from '$lib/components/SVG/ArrowLeft.svelte';
 	import { t } from '$lib/translations/index.js';
 	import { TabAnchor, TabGroup } from '@skeletonlabs/skeleton';
-	import { getContext, onDestroy } from 'svelte';
+	import { getContext, onDestroy, setContext } from 'svelte';
 	import type { Writable } from 'svelte/store';
 
 	export let data;
 	const pageTitle: Writable<string> = getContext('pageTitle');
+
+	setContext(
+		'currentSales',
+		data.currentSales.reduce((p, c) => c.number_sold + p, 0)
+	);
+
 	$pageTitle = `Emprendedor: ${data.entrepProfile.first_name} ${data.entrepProfile.last_name}`;
 	const baseUrl = `/manager-hub/entrep/${$page.params.entrepId}`;
 	const salesUrl = baseUrl + '/sales';
