@@ -10,7 +10,7 @@
 	"active": "Active",
 	"saveChanges": "Save changes",
 	"addLocation": "Add location",
-	"population": "Population (1000 inhabitants)",
+	"population": "Population",
 	"distanceToProvider": "Distance to Supplier (Km)",
 	"mainActivity": "Main Activity",
 	"mainActivityPlaceholder": "Economic activities, important to mention if there is mining",
