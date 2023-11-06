@@ -15,8 +15,7 @@
 	import type { EntrepProfile, FutureEntrep, Locations } from '$lib/types/sbTypes';
 	import { page } from '$app/stores';
 	import { t } from '$lib/translations';
-	import haversine from 'haversine-distance';
-	import { ZILOG_LOC } from '$lib/utils/warehouse';
+	import { aproxZilogDist } from '$lib/utils/distances';
 
 	export let lat: number, lon: number;
 	export let managerCountryCode: string | null | undefined;
@@ -73,18 +72,8 @@
 			const lon1 = strToFloatPrecision(boundingbox[2], 4) ?? +(lon - OFFSET).toFixed(4);
 			const lon2 = strToFloatPrecision(boundingbox[3], 4) ?? +(lon + OFFSET).toFixed(4);
 
-			let initDistance = null;
+			const initDistance = aproxZilogDist([(lat1 + lat2) / 2, (lon1 + lon2) / 2]);
 
-			try {
-				initDistance =
-					haversine(ZILOG_LOC, { lat: (lat1 + lat2) / 2, lon: (lon1 + lon2) / 2 }) ?? null;
-
-				if (initDistance) {
-					initDistance = (1.33 * initDistance) / 1000; //convert to kilometers and aproximate to road distance (roughly 1.33 factor)
-				}
-			} catch (error) {
-				initDistance = 0;
-			}
 			// Set the selected location based on existing location or create a new one
 			selectedLocation = existingByName ?? {
 				access_means: null,
