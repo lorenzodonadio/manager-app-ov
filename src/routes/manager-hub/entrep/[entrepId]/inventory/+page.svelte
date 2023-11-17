@@ -98,7 +98,7 @@
 	<h6 class="h6 mt-4 border-t py-1">{$t('invent.inventoryHistory')}</h6>
 	<ul class="max-h-96 overflow-y-auto space-y-2">
 		{#each data.supplyTransactions as st}
-			<SupplyTransactionLi avFilters={data.availibleFilters} {st} {supabase} />
+			<SupplyTransactionLi avFilters={data.availibleFilters} {st} />
 		{/each}
 	</ul>
 </div>

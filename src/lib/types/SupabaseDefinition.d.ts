@@ -107,6 +107,7 @@ export interface Database {
           {
             foreignKeyName: "customer_added_by_fkey"
             columns: ["added_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -174,16 +175,39 @@ export interface Database {
           {
             foreignKeyName: "entrep_questions_added_by_fkey"
             columns: ["added_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "entrep_questions_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "filter_sales"
             referencedColumns: ["id"]
           }
         ]
+      }
+      external_invite: {
+        Row: {
+          created_at: string
+          id: string
+          invited_by: string
+          magiclink: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          invited_by: string
+          magiclink: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          invited_by?: string
+          magiclink?: string
+        }
+        Relationships: []
       }
       filter_ids: {
         Row: {
@@ -238,12 +262,14 @@ export interface Database {
           {
             foreignKeyName: "filter_sales_customer_id_fkey"
             columns: ["customer_id"]
+            isOneToOne: false
             referencedRelation: "customer"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "filter_sales_sold_by_fkey"
             columns: ["sold_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -281,12 +307,14 @@ export interface Database {
           {
             foreignKeyName: "future_entrepreneurs_invited_by_fkey"
             columns: ["invited_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "future_entrepreneurs_location_id_fkey"
             columns: ["location_id"]
+            isOneToOne: false
             referencedRelation: "locations"
             referencedColumns: ["id"]
           }
@@ -310,11 +338,68 @@ export interface Database {
         }
         Relationships: []
       }
+      installment_sale: {
+        Row: {
+          comment: string | null
+          created_at: string
+          customer_id: string
+          entrep_id: string
+          extra_payment: number | null
+          first_payment: number
+          is_complete: boolean
+          sale_id: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          customer_id: string
+          entrep_id: string
+          extra_payment?: number | null
+          first_payment: number
+          is_complete?: boolean
+          sale_id: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          customer_id?: string
+          entrep_id?: string
+          extra_payment?: number | null
+          first_payment?: number
+          is_complete?: boolean
+          sale_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "installment_sale_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customer"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "installment_sale_entrep_id_fkey"
+            columns: ["entrep_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "installment_sale_sale_id_fkey"
+            columns: ["sale_id"]
+            isOneToOne: false
+            referencedRelation: "filter_sales"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       inventory_checks: {
         Row: {
           actual_check_date: string | null
+          bonus_currency: string | null
           entrep_id: string
           extension_granted: boolean | null
+          granted_bonus: number | null
           id: string
           is_completed: boolean | null
           manager_id: string
@@ -324,8 +409,10 @@ export interface Database {
         }
         Insert: {
           actual_check_date?: string | null
+          bonus_currency?: string | null
           entrep_id: string
           extension_granted?: boolean | null
+          granted_bonus?: number | null
           id: string
           is_completed?: boolean | null
           manager_id: string
@@ -335,8 +422,10 @@ export interface Database {
         }
         Update: {
           actual_check_date?: string | null
+          bonus_currency?: string | null
           entrep_id?: string
           extension_granted?: boolean | null
+          granted_bonus?: number | null
           id?: string
           is_completed?: boolean | null
           manager_id?: string
@@ -348,18 +437,21 @@ export interface Database {
           {
             foreignKeyName: "inventory_checks_entrep_id_fkey"
             columns: ["entrep_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "inventory_checks_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "supplies_transaction"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "inventory_checks_manager_id_fkey"
             columns: ["manager_id"]
+            isOneToOne: false
             referencedRelation: "manager"
             referencedColumns: ["id"]
           }
@@ -397,6 +489,7 @@ export interface Database {
           {
             foreignKeyName: "inventory_request_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           }
@@ -476,6 +569,7 @@ export interface Database {
           {
             foreignKeyName: "locations_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -504,18 +598,21 @@ export interface Database {
           {
             foreignKeyName: "managed_by_entrep_id_fkey"
             columns: ["entrep_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "managed_by_location_id_fkey"
             columns: ["location_id"]
+            isOneToOne: false
             referencedRelation: "locations"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "managed_by_manager_id_fkey"
             columns: ["manager_id"]
+            isOneToOne: false
             referencedRelation: "manager"
             referencedColumns: ["id"]
           }
@@ -544,6 +641,7 @@ export interface Database {
           {
             foreignKeyName: "manager_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -620,12 +718,14 @@ export interface Database {
           {
             foreignKeyName: "nonbuyer_interaction_added_by_fkey"
             columns: ["added_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "nonbuyer_interaction_customer_id_fkey"
             columns: ["customer_id"]
+            isOneToOne: false
             referencedRelation: "customer"
             referencedColumns: ["id"]
           }
@@ -657,12 +757,14 @@ export interface Database {
           {
             foreignKeyName: "notification_sent_by_fkey"
             columns: ["sent_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "notification_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -712,6 +814,7 @@ export interface Database {
           {
             foreignKeyName: "profiles_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }
@@ -734,12 +837,14 @@ export interface Database {
           {
             foreignKeyName: "sale_filter_ids_filter_id_fkey"
             columns: ["filter_id"]
+            isOneToOne: false
             referencedRelation: "filter_ids"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "sale_filter_ids_sale_id_fkey"
             columns: ["sale_id"]
+            isOneToOne: false
             referencedRelation: "filter_sales"
             referencedColumns: ["id"]
           }
@@ -783,12 +888,14 @@ export interface Database {
           {
             foreignKeyName: "supplies_transaction_entrep_id_fkey"
             columns: ["entrep_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "supplies_transaction_manager_id_fkey"
             columns: ["manager_id"]
+            isOneToOne: false
             referencedRelation: "manager"
             referencedColumns: ["id"]
           }
@@ -820,12 +927,14 @@ export interface Database {
           {
             foreignKeyName: "transaction_confirmations_entrep_id_fkey"
             columns: ["entrep_id"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "transaction_confirmations_transaction_id_fkey"
             columns: ["transaction_id"]
+            isOneToOne: false
             referencedRelation: "supplies_transaction"
             referencedColumns: ["id"]
           }
@@ -890,12 +999,14 @@ export interface Database {
           {
             foreignKeyName: "water_q_added_by_fkey"
             columns: ["added_by"]
+            isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "water_q_id_fkey"
             columns: ["id"]
+            isOneToOne: true
             referencedRelation: "filter_sales"
             referencedColumns: ["id"]
           }

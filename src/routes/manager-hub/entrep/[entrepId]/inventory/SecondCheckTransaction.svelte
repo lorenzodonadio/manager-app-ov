@@ -31,7 +31,7 @@
 			entrepName,
 			entrepEmail: $page.data.entrepProfile.email ?? '',
 			entrepPhone: $page.data.entrepProfile.phone ?? '',
-			managerEmail: $page.data.manager.email ?? '',
+			managerEmail: $page.data.manager?.email ?? '',
 			checkerName: `${$page.data.profile?.first_name ?? ''} ${$page.data.profile?.last_name ?? ''}`,
 			checkerEmail: $page.data.profile?.email ?? '',
 			supplyDetails: `${st.quantity} - ${st.item}`,
