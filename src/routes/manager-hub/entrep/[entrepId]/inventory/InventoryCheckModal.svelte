@@ -28,7 +28,9 @@
 		is_completed: null,
 		manager_id: st.manager_id,
 		notes: '',
-		second_check_date: null
+		second_check_date: null,
+		granted_bonus: null,
+		bonus_currency: null
 	};
 	const secondScheduleDate = calculateFutureDate().toDate();
 
@@ -40,6 +42,7 @@
 	const handleFinishYes = () => {
 		inventCheck.rating = rating;
 		inventCheck.actual_check_date = new Date().toISOString();
+		(inventCheck.granted_bonus = bonus), (inventCheck.bonus_currency = DEFAULT_CURRENCY);
 		dispatch('success', inventCheck);
 	};
 	const handleNo = () => {
@@ -52,6 +55,7 @@
 	const handleExtensionYes = () => {
 		inventCheck.extension_granted = true;
 		inventCheck.second_check_date = secondScheduleDate.toISOString();
+		(inventCheck.granted_bonus = bonus), (inventCheck.bonus_currency = DEFAULT_CURRENCY);
 		dispatch('extension', inventCheck);
 	};
 
