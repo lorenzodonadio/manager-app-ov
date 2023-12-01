@@ -71,7 +71,7 @@
 			const lon2 = strToFloatPrecision(boundingbox[3], 4) ?? +lon.toFixed(4);
 			const newLat = (lat1 + lat2) / 2;
 			const newLon = (lon1 + lon2) / 2;
-			const initDistance = aproxZilogDist([newLat, newLon]);
+			const initDistance = aproxZilogDist([newLat, newLon])?.toFixed(0);
 
 			// Set the selected location based on existing location or create a new one
 			selectedLocation = existingByName ?? {
@@ -98,6 +98,8 @@
 			if (error instanceof Error) {
 				errorToast(error.message);
 			}
+
+			dispatch('closeModal');
 		}
 	});
 

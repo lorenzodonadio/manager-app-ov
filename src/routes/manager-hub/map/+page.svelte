@@ -13,8 +13,14 @@
 	export let data;
 
 	const getLocationByCoords = (lat: number, lon: number) => {
+		const MAX_DELTA = 0.015;
 		for (const loc of data.locations) {
-			if (loc.lat1 <= lat && lat <= loc.lat2 && loc.lon1 <= lon && lon <= loc.lon2) {
+			const latDiff = Math.abs(loc.lat - lat);
+			const lonDiff = Math.abs(loc.lon - lon);
+			if (latDiff <= MAX_DELTA && lonDiff <= MAX_DELTA) {
+				console.log({ latDiff, lonDiff });
+				console.log(lat, lon);
+				console.log(loc);
 				return loc;
 			}
 		}
@@ -40,7 +46,7 @@
 		}).addTo(map);
 		//Add markers for existing locations
 		for (const loc of data.locations) {
-			addMarker((loc.lat1 + loc.lat2) / 2, (loc.lon1 + loc.lon2) / 2);
+			addMarker(loc.lat, loc.lon);
 		}
 
 		map.on('click', async (e) => {
@@ -71,9 +77,7 @@
 			// Only add markers for new locations => Not existent ones
 			if (!e.detail.isExisting) {
 				const newLoc = e.detail.selectedLocation;
-				const newLat = (newLoc.lat1 + newLoc.lat2) / 2;
-				const newLon = (newLoc.lon1 + newLoc.lon2) / 2;
-				addMarker(newLat, newLon);
+				addMarker(newLoc.lat, newLoc.lon);
 			}
 			showLocationModal = false;
 			invalidate('managerhub:root');
