@@ -22,8 +22,6 @@
 	export let getLocationByCoords: Function;
 	// This component displays a modal with information about a selected location,
 	// and allows the user to add or edit location details, as well as invite new entrepreneurs to the location.
-	// OFFSET is used to adjust latitude and longitude values when necessary
-	const OFFSET = 0.001;
 
 	// createEventDispatcher allows this component to dispatch custom events to its parent
 	const dispatch = createEventDispatcher<{
@@ -67,12 +65,13 @@
 			if (isExisting) tabSet = 1;
 
 			// Parse the bounding box values to fixed decimals, or set default values based on OFFSET
-			const lat1 = strToFloatPrecision(boundingbox[0], 4) ?? +(lat - OFFSET).toFixed(4);
-			const lat2 = strToFloatPrecision(boundingbox[1], 4) ?? +(lat + OFFSET).toFixed(4);
-			const lon1 = strToFloatPrecision(boundingbox[2], 4) ?? +(lon - OFFSET).toFixed(4);
-			const lon2 = strToFloatPrecision(boundingbox[3], 4) ?? +(lon + OFFSET).toFixed(4);
-
-			const initDistance = aproxZilogDist([(lat1 + lat2) / 2, (lon1 + lon2) / 2]);
+			const lat1 = strToFloatPrecision(boundingbox[0], 4) ?? +lat.toFixed(4);
+			const lat2 = strToFloatPrecision(boundingbox[1], 4) ?? +lat.toFixed(4);
+			const lon1 = strToFloatPrecision(boundingbox[2], 4) ?? +lon.toFixed(4);
+			const lon2 = strToFloatPrecision(boundingbox[3], 4) ?? +lon.toFixed(4);
+			const newLat = (lat1 + lat2) / 2;
+			const newLon = (lon1 + lon2) / 2;
+			const initDistance = aproxZilogDist([newLat, newLon]);
 
 			// Set the selected location based on existing location or create a new one
 			selectedLocation = existingByName ?? {
@@ -85,10 +84,8 @@
 				display_name: displayName,
 				distance_ov_km: initDistance,
 				id: nanoid(8),
-				lat1,
-				lat2,
-				lon1,
-				lon2,
+				lat: newLat,
+				lon: newLon,
 				main_activity: null,
 				payment_options: null,
 				state: state,

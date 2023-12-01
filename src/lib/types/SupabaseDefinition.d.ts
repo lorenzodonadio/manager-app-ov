@@ -113,81 +113,6 @@ export interface Database {
           }
         ]
       }
-      elearn_answers: {
-        Row: {
-          answers: Json | null
-          created_at: string | null
-          email: string
-          score: Json | null
-        }
-        Insert: {
-          answers?: Json | null
-          created_at?: string | null
-          email: string
-          score?: Json | null
-        }
-        Update: {
-          answers?: Json | null
-          created_at?: string | null
-          email?: string
-          score?: Json | null
-        }
-        Relationships: []
-      }
-      entrep_questions: {
-        Row: {
-          added_by: string | null
-          created_at: string | null
-          id: string
-          q1: string | null
-          q2: string | null
-          q3: string | null
-          q4: string | null
-          q5: string | null
-          q6: string | null
-          q7: string | null
-        }
-        Insert: {
-          added_by?: string | null
-          created_at?: string | null
-          id: string
-          q1?: string | null
-          q2?: string | null
-          q3?: string | null
-          q4?: string | null
-          q5?: string | null
-          q6?: string | null
-          q7?: string | null
-        }
-        Update: {
-          added_by?: string | null
-          created_at?: string | null
-          id?: string
-          q1?: string | null
-          q2?: string | null
-          q3?: string | null
-          q4?: string | null
-          q5?: string | null
-          q6?: string | null
-          q7?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "entrep_questions_added_by_fkey"
-            columns: ["added_by"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "entrep_questions_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "filter_sales"
-            referencedColumns: ["id"]
-          }
-        ]
-      }
       external_invite: {
         Row: {
           created_at: string
@@ -341,6 +266,7 @@ export interface Database {
       installment_sale: {
         Row: {
           comment: string | null
+          completed_at: string | null
           created_at: string
           customer_id: string
           entrep_id: string
@@ -351,6 +277,7 @@ export interface Database {
         }
         Insert: {
           comment?: string | null
+          completed_at?: string | null
           created_at?: string
           customer_id: string
           entrep_id: string
@@ -361,6 +288,7 @@ export interface Database {
         }
         Update: {
           comment?: string | null
+          completed_at?: string | null
           created_at?: string
           customer_id?: string
           entrep_id?: string
@@ -507,10 +435,8 @@ export interface Database {
           display_name: string
           distance_ov_km: number | null
           id: string
-          lat1: number
-          lat2: number
-          lon1: number
-          lon2: number
+          lat: number
+          lon: number
           main_activity: string | null
           payment_options: string | null
           population: number | null
@@ -530,10 +456,8 @@ export interface Database {
           display_name: string
           distance_ov_km?: number | null
           id: string
-          lat1: number
-          lat2: number
-          lon1: number
-          lon2: number
+          lat: number
+          lon: number
           main_activity?: string | null
           payment_options?: string | null
           population?: number | null
@@ -553,10 +477,8 @@ export interface Database {
           display_name?: string
           distance_ov_km?: number | null
           id?: string
-          lat1?: number
-          lat2?: number
-          lon1?: number
-          lon2?: number
+          lat?: number
+          lon?: number
           main_activity?: string | null
           payment_options?: string | null
           population?: number | null
@@ -670,66 +592,6 @@ export interface Database {
           title?: string
         }
         Relationships: []
-      }
-      nonbuyer_interaction: {
-        Row: {
-          added_by: string | null
-          comments: string | null
-          created_at: string | null
-          customer_id: string | null
-          has_alternative: boolean | null
-          id: string
-          is_interested: boolean | null
-          latitude: number | null
-          longitude: number | null
-          reason_not_to_buy: string | null
-          which_alternative: string | null
-          why_no_interest: string | null
-        }
-        Insert: {
-          added_by?: string | null
-          comments?: string | null
-          created_at?: string | null
-          customer_id?: string | null
-          has_alternative?: boolean | null
-          id: string
-          is_interested?: boolean | null
-          latitude?: number | null
-          longitude?: number | null
-          reason_not_to_buy?: string | null
-          which_alternative?: string | null
-          why_no_interest?: string | null
-        }
-        Update: {
-          added_by?: string | null
-          comments?: string | null
-          created_at?: string | null
-          customer_id?: string | null
-          has_alternative?: boolean | null
-          id?: string
-          is_interested?: boolean | null
-          latitude?: number | null
-          longitude?: number | null
-          reason_not_to_buy?: string | null
-          which_alternative?: string | null
-          why_no_interest?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "nonbuyer_interaction_added_by_fkey"
-            columns: ["added_by"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "nonbuyer_interaction_customer_id_fkey"
-            columns: ["customer_id"]
-            isOneToOne: false
-            referencedRelation: "customer"
-            referencedColumns: ["id"]
-          }
-        ]
       }
       notification: {
         Row: {
@@ -943,7 +805,6 @@ export interface Database {
       water_q: {
         Row: {
           added_by: string | null
-          cost_comment: string | null
           cost_of_water_month: number | null
           created_at: string | null
           general_water_problems: string | null
@@ -952,7 +813,6 @@ export interface Database {
           longitude: number | null
           people_below_5yo: number | null
           people_in_household: number | null
-          sick_comments: string | null
           sick_past30d: string | null
           treatment: string | null
           treatment_boiling: string | null
@@ -961,7 +821,6 @@ export interface Database {
         }
         Insert: {
           added_by?: string | null
-          cost_comment?: string | null
           cost_of_water_month?: number | null
           created_at?: string | null
           general_water_problems?: string | null
@@ -970,7 +829,6 @@ export interface Database {
           longitude?: number | null
           people_below_5yo?: number | null
           people_in_household?: number | null
-          sick_comments?: string | null
           sick_past30d?: string | null
           treatment?: string | null
           treatment_boiling?: string | null
@@ -979,7 +837,6 @@ export interface Database {
         }
         Update: {
           added_by?: string | null
-          cost_comment?: string | null
           cost_of_water_month?: number | null
           created_at?: string | null
           general_water_problems?: string | null
@@ -988,7 +845,6 @@ export interface Database {
           longitude?: number | null
           people_below_5yo?: number | null
           people_in_household?: number | null
-          sick_comments?: string | null
           sick_past30d?: string | null
           treatment?: string | null
           treatment_boiling?: string | null
@@ -1039,3 +895,83 @@ export interface Database {
     }
   }
 }
+
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
+      Database["public"]["Views"])
+  ? (Database["public"]["Tables"] &
+      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : never
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : never
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : never
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof Database["public"]["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
+  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+  : never
