@@ -1,5 +1,5 @@
 // we only have COP for now, but will hopefully expand in the future
-const bonusMapCOP: Record<number, number> = {
+const discountMapCOP: Record<number, number> = {
 	8: 60000,
 	9: 60000,
 	10: 60000,
@@ -19,14 +19,14 @@ const bonusMapCOP: Record<number, number> = {
 	24: 200000
 };
 
-const keys = Object.keys(bonusMapCOP);
+const keys = Object.keys(discountMapCOP);
 
 /**
- * @param units units of filters to calculate the bonus for
+ * @param units units of filters to calculate the discount for
  * @param currency 'ALPHA 2 currency code, default is COP'
  */
-export const getBonus = (units: number, currency: string = 'COP') => {
-	// TODO implement to get the bonus based on the bonusMapCOP
+export const getDiscount = (units: number, currency: string = 'COP') => {
+	// TODO implement to get the discount based on the discountMapCOP
 	if (currency !== 'COP') {
 		throw new Error(`Unsupported currency: ${currency}. Only COP is supported currently.`);
 	}
@@ -35,8 +35,8 @@ export const getBonus = (units: number, currency: string = 'COP') => {
 	}
 	const lastKey = Number(keys.at(-1)!);
 	if (units > lastKey) {
-		return bonusMapCOP[lastKey];
+		return discountMapCOP[lastKey];
 	}
 
-	return bonusMapCOP[units];
+	return discountMapCOP[units];
 };

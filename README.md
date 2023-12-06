@@ -63,16 +63,16 @@ white: `#eeedee`
 - **Online Payment Integration**: Connect with a payment service for entrepreneurs to pay for their supplies.
 - **In-Progress Sale Completion**: Add the ability to complete an ongoing sale.
 
-### Bonus Scheme:
+### discount Scheme:
 
-- **Initial Implementation**: Implement a bonus scheme showing potential bonuses to entrepreneurs and managers.
-- **Goal Achievement Tracking**: Display whether goals were met and entitlement to bonuses.
-- **Bonus Guidance**: Provide tips to entrepreneurs on how to reach bonus targets.
-- **Easy Bonus Payment**: Possibly integrate online banking for convenient bonus payouts.
+- **Initial Implementation**: Implement a discount scheme showing potential discountes to entrepreneurs and managers.
+- **Goal Achievement Tracking**: Display whether goals were met and entitlement to discountes.
+- **discount Guidance**: Provide tips to entrepreneurs on how to reach discount targets.
+- **Easy discount Payment**: Possibly integrate online banking for convenient discount payouts.
 
 ### Notifications:
 
-- **Inventory & Bonus Notifications**: Notify users about received inventory, upcoming inventory checks, and bonus statuses.
+- **Inventory & discount Notifications**: Notify users about received inventory, upcoming inventory checks, and discount statuses.
 - **In-App & Push Notifications**: Start with in-app notifications with plans to add push notifications.
 
 ### Entrepreneur Network:

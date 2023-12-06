@@ -324,10 +324,10 @@ export interface Database {
       inventory_checks: {
         Row: {
           actual_check_date: string | null
-          bonus_currency: string | null
+          discount_currency: string | null
           entrep_id: string
           extension_granted: boolean | null
-          granted_bonus: number | null
+          granted_discount: number | null
           id: string
           is_completed: boolean | null
           manager_id: string
@@ -337,10 +337,10 @@ export interface Database {
         }
         Insert: {
           actual_check_date?: string | null
-          bonus_currency?: string | null
+          discount_currency?: string | null
           entrep_id: string
           extension_granted?: boolean | null
-          granted_bonus?: number | null
+          granted_discount?: number | null
           id: string
           is_completed?: boolean | null
           manager_id: string
@@ -350,10 +350,10 @@ export interface Database {
         }
         Update: {
           actual_check_date?: string | null
-          bonus_currency?: string | null
+          discount_currency?: string | null
           entrep_id?: string
           extension_granted?: boolean | null
-          granted_bonus?: number | null
+          granted_discount?: number | null
           id?: string
           is_completed?: boolean | null
           manager_id?: string
