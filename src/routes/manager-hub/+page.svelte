@@ -7,14 +7,14 @@
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import InfoCircle from '$lib/components/SVG/InfoCircle.svelte';
 	import { SlideToggle } from '@skeletonlabs/skeleton';
+	import type { EntrepProfile } from '$lib/types/sbTypes';
 	export let data;
 	let search = '';
 	let showAllEntreps = false;
 
 	const myEntreps = data.entrepList.filter((x) => x.is_managed_by_me);
-
-	const getEntreps = (s: string) => {
-		const entrepsToShow = showAllEntreps ? data.entrepList : myEntreps;
+	const getEntreps = (s: string, showAll: boolean) => {
+		const entrepsToShow = showAll ? data.entrepList : myEntreps;
 		if (search === '') return entrepsToShow;
 
 		return entrepsToShow.filter((x) =>
@@ -22,7 +22,7 @@
 		);
 	};
 
-	$: entrepreneurs = getEntreps(search);
+	$: entrepreneurs = getEntreps(search, showAllEntreps);
 </script>
 
 <div class="max-w-5xl mx-auto">
@@ -69,7 +69,7 @@
 		</div>
 	</div>
 	{#if entrepreneurs.length > 0}
-		<ul class="my-4 divide-y border rounded-md p-2 py-1.5 max-h-96 overflow-y-auto">
+		<ul class="my-4 divide-y border rounded-md p-2 py-1.5 max-h-[532px] overflow-y-auto">
 			{#each entrepreneurs as entrep}
 				{@const manager = data.allProfiles.find((x) => x.id === entrep.manager_id)}
 				{@const location = data.locations.find((x) => x.id === entrep.location_id)}

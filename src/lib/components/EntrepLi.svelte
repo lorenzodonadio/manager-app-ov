@@ -14,11 +14,11 @@
 		entrep.latestTransaction && !entrep.isTransactionComplete && daysToDate <= 3;
 </script>
 
-<li class="py-1">
+<li class="py-1.5">
 	<a class="flex justify-between w-full space-x-2" href="/manager-hub/entrep/{entrep.id}">
 		<div class="flex gap-2 flex-wrap justify-between w-2/3">
 			<div class="">
-				<p>{name}</p>
+				<strong>{name}</strong>
 				<p>{entrep.email}</p>
 				{#if showInventCheckButton}
 					<a
@@ -56,27 +56,27 @@
 						</p>
 					{:else}
 						<p class="badge variant-ringed-success">{$t('home.salesPeriodInProgress')}</p>
-						<p class="p text-sm">
+						<p class="text-sm">
 							{$t('home.fromDate')}: {parseDateToMonthDayYear(
 								entrep.latestTransaction.transaction_date
 							)}
 						</p>
-						<p class="p text-sm">
+						<p class="text-sm">
 							{$t('home.toDate')}: {parseDateToMonthDayYear(
 								entrep.latestTransaction.schedule_check_date
 							)}
 						</p>
 					{/if}
-					<p class="p text-sm">
+					<p class="text-sm">
 						{translateSup(entrep.latestTransaction.type)}: {entrep.latestTransaction.quantity}
 						{translateSup(entrep.latestTransaction.item)}
 					</p>
 				</div>
 			{/if}
 		</div>
-		<div class="">
+		<div class="min-w-[312px]">
 			{#if location}
-				<p class="text-sm sm:text-base p">{location.display_name}</p>
+				<p class="text-sm sm:text-base">{location.display_name}</p>
 			{/if}
 
 			{#if manager}
