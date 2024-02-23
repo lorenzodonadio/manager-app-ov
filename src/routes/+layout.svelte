@@ -8,6 +8,8 @@
 	import { Toaster } from 'svelte-french-toast';
 	import { Modal, initializeStores } from '@skeletonlabs/skeleton';
 	import type { Subscription } from '@supabase/supabase-js';
+	import { navigating } from '$app/stores';
+	import SpinnerSvg from '$lib/components/SVG/SpinnerSVG.svelte';
 	export let data;
 	initializeStores();
 	const possibleLocales = Object.keys(lang);
@@ -54,7 +56,13 @@
 <Modal />
 <div class="dark:bg-surface-900 h-full">
 	{#if loaded}
-		<slot />
+		{#if $navigating}
+			<div class="flex justify-center">
+				<SpinnerSvg />
+			</div>
+		{:else}
+			<slot />
+		{/if}
 	{:else}
 		<div class=" flex w-full h-full justify-center items-center animate-pulse">
 			<OvLogo />

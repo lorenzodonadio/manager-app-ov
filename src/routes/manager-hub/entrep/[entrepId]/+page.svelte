@@ -34,7 +34,7 @@
 					>{data.currentSales.reduce((p, c) => c.number_sold + p, 0)}</strong
 				>
 			</p>
-			<p class="transition-all">Filtros disponibles: <strong>{data.availibleFilters}</strong></p>
+			<p class="transition-all">Filtros disponibles: <strong>{data.availableFilters}</strong></p>
 
 			<div class="flex space-x-4">
 				<p class="text-sm">

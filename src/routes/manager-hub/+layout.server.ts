@@ -45,14 +45,16 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 		{ data: futureEntrep, error: err4 },
 		{ data: supplies, error: err5 },
 		{ data: locations, error: err6 },
-		{ data: inventoryRequests, error: err7 }
+		{ data: inventoryRequests, error: err7 },
+		{ data: entrepreneurLevels, error: err8 }
 	] = await Promise.all([
 		supabase.from('managed_by').select(),
 		supabase.from('profiles').select(),
 		supabase.from('future_entrepreneurs').select(),
 		suppliesTransactionQuery,
 		supabase.from('locations').select(),
-		supabase.from('inventory_request').select('*').match({ is_completed: false })
+		supabase.from('inventory_request').select('*').match({ is_completed: false }),
+		supabase.from('entrep_level').select()
 	]);
 	const entrepList: EntrepProfile[] = [];
 
@@ -83,6 +85,7 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 		futureEntrep: futureEntrep ?? [],
 		supplies: supplies ?? [],
 		locations: locations ?? [],
-		inventoryRequests: inventoryRequests ?? []
+		inventoryRequests: inventoryRequests ?? [],
+		entrepreneurLevels
 	};
 };

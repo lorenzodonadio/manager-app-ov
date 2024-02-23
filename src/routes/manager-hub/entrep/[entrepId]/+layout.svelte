@@ -14,7 +14,7 @@
 		data.currentSales.reduce((p, c) => c.number_sold + p, 0)
 	);
 
-	$pageTitle = `Emprendedor: ${data.entrepProfile.first_name} ${data.entrepProfile.last_name}`;
+	$pageTitle = `Emprendedor: ${data.entrepProfile.first_name} ${data.entrepProfile.last_name} - Nivel: ${data.entrepLevel.name}`;
 	const baseUrl = `/manager-hub/entrep/${$page.params.entrepId}`;
 	const salesUrl = baseUrl + '/sales';
 	const inventUrl = baseUrl + '/inventory';

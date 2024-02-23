@@ -21,6 +21,4 @@
 </div>
 <div class="flex justify-between">
 	<p class="line-clamp-5">Notas: {inventCheck.notes}</p>
-
-	<p>Descuento: {inventCheck.granted_discount ?? '-'} {inventCheck.discount_currency ?? ''}</p>
 </div>

@@ -22,11 +22,11 @@ export const SUPPLY_TRANSACTION_TYPES = ['REPLENISHMENT', 'RETURN', 'ADJUSTMENT'
 
 export const DEFAULT_COUNTRY = 'CO';
 export const DEFAULT_CURRENCY = 'COP';
-export const POSSIBLE_QTY = [8, 16, 24];
+export const POSSIBLE_QTY = [10, 20, 30, 40];
 // Mapping of suggested prices based on currency codes.
 export const SUGGESTED_PRICE = {
-	COP: 175000,
-	USD: 35
+	COP: 195000,
+	USD: 45
 };
 
 /**

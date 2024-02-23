@@ -10,7 +10,7 @@
 	import { t } from '$lib/translations';
 	export let data: PageData;
 	const supabase = data.supabase;
-	let avFilters = data.availibleFilters;
+	let avFilters = data.availableFilters;
 	let showGiveFiltersModal = false;
 	$: disabledSupplies = avFilters <= 0 ? false : !data.entrepProfile.isTransactionComplete;
 
@@ -44,6 +44,8 @@
 		invalidate('managerhub:root');
 		showGiveFiltersModal = false;
 	};
+
+	console.log(data.supplyTransactions);
 </script>
 
 {#if showGiveFiltersModal}
@@ -55,6 +57,7 @@
 		name={data.entrepProfile.first_name ?? ''}
 		managerId={data.session?.user.id ?? ''}
 		supabase={data.supabase}
+		entrepLevel={data.entrepLevel}
 	/>
 {/if}
 
@@ -98,7 +101,7 @@
 	<h6 class="h6 mt-4 border-t py-1">{$t('invent.inventoryHistory')}</h6>
 	<ul class="max-h-96 overflow-y-auto space-y-2">
 		{#each data.supplyTransactions as st}
-			<SupplyTransactionLi avFilters={data.availibleFilters} {st} />
+			<SupplyTransactionLi avFilters={data.availableFilters} {st} />
 		{/each}
 	</ul>
 </div>

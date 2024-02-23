@@ -9,13 +9,11 @@
 	import { t } from '$lib/translations';
 	import { createEventDispatcher, getContext } from 'svelte';
 	import StartsInput from '$lib/components/StartsInput.svelte';
-	import { getDiscount } from '$lib/utils/discount';
 	import { DEFAULT_CURRENCY } from '$lib/utils/constants';
 	const dispatch = createEventDispatcher();
 	export let st: ManagerSupplies;
 
 	const fitlersSold: number = getContext('currentSales');
-	const discount = getDiscount(fitlersSold);
 
 	let title = `¿Se vendieron todos los ${st.quantity} ${translateSup(st.item)}?`;
 	let step: 'initial' | 'success' | 'extension' = 'initial';
@@ -28,9 +26,7 @@
 		is_completed: null,
 		manager_id: st.manager_id,
 		notes: '',
-		second_check_date: null,
-		granted_discount: null,
-		discount_currency: null
+		second_check_date: null
 	};
 	const secondScheduleDate = calculateFutureDate().toDate();
 
@@ -42,7 +38,6 @@
 	const handleFinishYes = () => {
 		inventCheck.rating = rating;
 		inventCheck.actual_check_date = new Date().toISOString();
-		(inventCheck.granted_discount = discount), (inventCheck.discount_currency = DEFAULT_CURRENCY);
 		dispatch('success', inventCheck);
 	};
 	const handleNo = () => {
@@ -55,7 +50,6 @@
 	const handleExtensionYes = () => {
 		inventCheck.extension_granted = true;
 		inventCheck.second_check_date = secondScheduleDate.toISOString();
-		(inventCheck.granted_discount = discount), (inventCheck.discount_currency = DEFAULT_CURRENCY);
 		dispatch('extension', inventCheck);
 	};
 
@@ -69,10 +63,10 @@
 		{#if step === 'initial'}
 			<h5 class="h5">Chequeo de inventario</h5>
 			<p>Agendado para el: {parseDateToMonthDayYear(st.schedule_check_date)}</p>
-			<p>
+			<!-- <p>
 				En el sistema se registran {fitlersSold} filtros vendidos, Se otorga un discount de {discount}
 				{DEFAULT_CURRENCY} por las ventas
-			</p>
+			</p> -->
 			<div class="flex justify-between pt-2">
 				<button on:click={handleNo} class="btn variant-ghost-warning">No</button>
 				<button on:click={handleYes} class="btn variant-ghost-primary">Yes</button>
@@ -94,10 +88,10 @@
 				Si no se vendio ningun filtro se debe hablar con el equipo de Openversum y se inicia el
 				proceso de devolucion de inventario
 			</p>
-			<p>
+			<!-- <p>
 				En el sistema se registran {fitlersSold} filtros vendidos, Se otorga un discount de {discount.toString()}
 				{DEFAULT_CURRENCY} por las ventas
-			</p>
+			</p> -->
 
 			<TextArea rows={2} label={$t('common.notes')} bind:value={inventCheck.notes} />
 			<div class="flex justify-between pt-2">

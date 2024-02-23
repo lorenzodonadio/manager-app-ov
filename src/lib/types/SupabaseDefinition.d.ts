@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       app_version: {
@@ -112,6 +112,57 @@ export interface Database {
             referencedColumns: ["id"]
           }
         ]
+      }
+      entrep_level: {
+        Row: {
+          early_pay_discount: number
+          filter_margin_cop: number
+          id: number
+          max_order: number
+          name: string
+          twenty_or_more_discount_cop: number
+        }
+        Insert: {
+          early_pay_discount: number
+          filter_margin_cop: number
+          id?: number
+          max_order: number
+          name: string
+          twenty_or_more_discount_cop?: number
+        }
+        Update: {
+          early_pay_discount?: number
+          filter_margin_cop?: number
+          id?: number
+          max_order?: number
+          name?: string
+          twenty_or_more_discount_cop?: number
+        }
+        Relationships: []
+      }
+      error_log: {
+        Row: {
+          created_at: string
+          id: number
+          text: string | null
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          text?: string | null
+          type: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          text?: string | null
+          type?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       external_invite: {
         Row: {
@@ -569,30 +620,6 @@ export interface Database {
           }
         ]
       }
-      news: {
-        Row: {
-          created_at: string | null
-          id: number
-          image: string | null
-          text: string | null
-          title: string
-        }
-        Insert: {
-          created_at?: string | null
-          id?: number
-          image?: string | null
-          text?: string | null
-          title: string
-        }
-        Update: {
-          created_at?: string | null
-          id?: number
-          image?: string | null
-          text?: string | null
-          title?: string
-        }
-        Relationships: []
-      }
       notification: {
         Row: {
           created_at: string
@@ -625,6 +652,48 @@ export interface Database {
           },
           {
             foreignKeyName: "notification_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      payment_link: {
+        Row: {
+          active: boolean | null
+          created_at: string
+          id: string
+          link_data: Json
+          supply_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string
+          id: string
+          link_data: Json
+          supply_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string
+          id?: string
+          link_data?: Json
+          supply_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_link_supply_id_fkey"
+            columns: ["supply_id"]
+            isOneToOne: false
+            referencedRelation: "supplies_transaction"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_link_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
@@ -708,6 +777,41 @@ export interface Database {
             columns: ["sale_id"]
             isOneToOne: false
             referencedRelation: "filter_sales"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      supplies_price: {
+        Row: {
+          created_at: string
+          currency: string
+          entrep_margin: number
+          filter_unit_price: number
+          id: string
+          margin_detail: Json | null
+        }
+        Insert: {
+          created_at?: string
+          currency: string
+          entrep_margin: number
+          filter_unit_price: number
+          id: string
+          margin_detail?: Json | null
+        }
+        Update: {
+          created_at?: string
+          currency?: string
+          entrep_margin?: number
+          filter_unit_price?: number
+          id?: string
+          margin_detail?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_supplies_price_id_fkey"
+            columns: ["id"]
+            isOneToOne: true
+            referencedRelation: "supplies_transaction"
             referencedColumns: ["id"]
           }
         ]
@@ -802,6 +906,36 @@ export interface Database {
           }
         ]
       }
+      user_level_map: {
+        Row: {
+          level_id: number
+          user_id: string
+        }
+        Insert: {
+          level_id: number
+          user_id: string
+        }
+        Update: {
+          level_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_level_map_level_id_fkey"
+            columns: ["level_id"]
+            isOneToOne: false
+            referencedRelation: "entrep_level"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_level_map_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       water_q: {
         Row: {
           added_by: string | null
@@ -868,6 +1002,112 @@ export interface Database {
           }
         ]
       }
+      wompi_events: {
+        Row: {
+          amount_in_cents: number
+          created_at: string
+          currency: string
+          customer_data: Json | null
+          customer_email: string
+          finalized_at: string
+          id: string
+          payment_link_id: string | null
+          payment_method_type: string
+          status: Database["public"]["Enums"]["WOMPI_EVENT_STATUS"]
+          status_message: string | null
+          supply_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount_in_cents: number
+          created_at?: string
+          currency: string
+          customer_data?: Json | null
+          customer_email: string
+          finalized_at: string
+          id: string
+          payment_link_id?: string | null
+          payment_method_type: string
+          status: Database["public"]["Enums"]["WOMPI_EVENT_STATUS"]
+          status_message?: string | null
+          supply_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount_in_cents?: number
+          created_at?: string
+          currency?: string
+          customer_data?: Json | null
+          customer_email?: string
+          finalized_at?: string
+          id?: string
+          payment_link_id?: string | null
+          payment_method_type?: string
+          status?: Database["public"]["Enums"]["WOMPI_EVENT_STATUS"]
+          status_message?: string | null
+          supply_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wompi_events_payment_link_id_fkey"
+            columns: ["payment_link_id"]
+            isOneToOne: false
+            referencedRelation: "payment_link"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wompi_events_supply_id_fkey"
+            columns: ["supply_id"]
+            isOneToOne: false
+            referencedRelation: "supplies_transaction"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wompi_events_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      wompi_transaction: {
+        Row: {
+          created_at: string
+          id: string
+          supply_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          supply_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          supply_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wompi_transaction_supply_id_fkey"
+            columns: ["supply_id"]
+            isOneToOne: false
+            referencedRelation: "supplies_transaction"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "wompi_transaction_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -888,7 +1128,7 @@ export interface Database {
       }
     }
     Enums: {
-      [_ in never]: never
+      WOMPI_EVENT_STATUS: "APPROVED" | "DECLINED" | "VOIDED" | "ERROR"
     }
     CompositeTypes: {
       [_ in never]: never
