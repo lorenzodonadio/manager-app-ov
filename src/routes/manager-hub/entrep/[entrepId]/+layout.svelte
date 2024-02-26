@@ -24,24 +24,30 @@
 	});
 </script>
 
-<div class="flex justify-center relative">
-	<a class="btn absolute left-0" href="/manager-hub">
-		<ArrowLeft />
-	</a>
+<div class="flex justify-center">
+	<div class="relative max-w-5xl w-full flex justify-center">
+		<a class="btn absolute left-0" href="/manager-hub">
+			<ArrowLeft />
+		</a>
 
-	<!-- <h4 class="h4 mt-1">{data.entrepProfile.first_name} {data.entrepProfile.last_name}</h4> -->
-	<TabGroup>
-		<TabAnchor selected={$page.url.pathname === baseUrl} href={baseUrl}>
-			<!-- <svelte:fragment slot="lead">(icon)</svelte:fragment> -->
-			<span> General </span>
-		</TabAnchor>
-		<TabAnchor selected={$page.url.pathname === salesUrl} href={salesUrl}>
-			<span> Ventas </span>
-		</TabAnchor>
-		<TabAnchor selected={$page.url.pathname === inventUrl} href={inventUrl}>
-			<span> Inventario </span>
-		</TabAnchor>
-		<!-- ... -->
-	</TabGroup>
+		<!-- <h4 class="h4 mt-1">{data.entrepProfile.first_name} {data.entrepProfile.last_name}</h4> -->
+		<TabGroup>
+			<TabAnchor selected={$page.url.pathname === baseUrl} href={baseUrl}>
+				<!-- <svelte:fragment slot="lead">(icon)</svelte:fragment> -->
+				<span class="text-lg"> General </span>
+			</TabAnchor>
+			<TabAnchor selected={$page.url.pathname === salesUrl} href={salesUrl}>
+				<span class="text-lg"> Ventas </span>
+			</TabAnchor>
+			<TabAnchor selected={$page.url.pathname === inventUrl} href={inventUrl}>
+				<span class="text-lg"> Inventario </span>
+			</TabAnchor>
+			<!-- ... -->
+		</TabGroup>
+	</div>
 </div>
-<slot />
+<div class="flex justify-center">
+	<div class="max-w-5xl w-full">
+		<slot />
+	</div>
+</div>

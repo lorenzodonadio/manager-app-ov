@@ -9,7 +9,7 @@ export type ManagedBy = Database['public']['Tables']['managed_by'];
 export type InventoryRequest = Database['public']['Tables']['inventory_request'];
 export type InventoryCheck = Database['public']['Tables']['inventory_checks'];
 export type SupplyTransaction = Database['public']['Tables']['supplies_transaction'];
-
+export type EntrepLevel = Database['public']['Tables']['entrep_level'];
 export type ManagerSupplies = SupplyTransaction['Row'] & {
 	inventory_checks?: InventoryCheck['Row'] | null | undefined;
 };

@@ -76,6 +76,7 @@ export const load = async ({ depends, params, parent, locals }) => {
 		totFilterSales,
 		availableFilters: Math.max(s - totFilterSales, 0),
 		entrepLevel,
+		entrepreneurLevels: p.entrepreneurLevels ?? [],
 		approvedPayments
 	};
 };

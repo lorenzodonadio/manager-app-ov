@@ -54,7 +54,7 @@ export const load = async ({ depends, locals: { supabase, getSession } }) => {
 		suppliesTransactionQuery,
 		supabase.from('locations').select(),
 		supabase.from('inventory_request').select('*').match({ is_completed: false }),
-		supabase.from('entrep_level').select()
+		supabase.from('entrep_level').select().order('id')
 	]);
 	const entrepList: EntrepProfile[] = [];
 

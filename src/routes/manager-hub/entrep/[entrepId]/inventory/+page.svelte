@@ -44,8 +44,6 @@
 		invalidate('managerhub:root');
 		showGiveFiltersModal = false;
 	};
-
-	console.log(data.supplyTransactions);
 </script>
 
 {#if showGiveFiltersModal}

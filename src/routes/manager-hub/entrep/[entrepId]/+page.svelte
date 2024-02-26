@@ -1,10 +1,19 @@
 <script lang="ts">
+	import EntrepLevelCard from './EntrepLevelCard.svelte';
 	import { translateSup } from '$lib/translations/suppliesTranslations';
 	import { parseDateToMonthDayYear } from '$lib/utils/dateHelpers';
 	export let data;
 </script>
 
 <div class="space-y-2 sm:space-y-4">
+	<EntrepLevelCard
+		firstDelivery={data.supplyTransactions.at(0)}
+		entrepLevel={data.entrepLevel}
+		possibleLevels={data.entrepreneurLevels}
+		entrepProfile={data.entrepProfile}
+		supabase={data.supabase}
+	/>
+
 	<div class="card p-1 sm:p-3">
 		<h5 class="h5">Datos del emprendedor:</h5>
 		{#if data.location}
@@ -20,6 +29,7 @@
 			<p class="p text-sm">Desde: {new Date(data.entrepProfile.created_at).toLocaleDateString()}</p>
 		{/if}
 	</div>
+
 	{#if data.entrepProfile.latestTransaction && !data.entrepProfile.isTransactionComplete}
 		<div class="card p-2 sm:p-3">
 			<h4 class="h4">Periodo de ventas en curso</h4>
