@@ -140,6 +140,65 @@ export type Database = {
         }
         Relationships: []
       }
+      entrep_level_change_history: {
+        Row: {
+          created_at: string
+          entrep_id: string
+          id: number
+          level_from: number | null
+          level_to: number
+          manager_id: string | null
+          notes: string | null
+        }
+        Insert: {
+          created_at?: string
+          entrep_id: string
+          id?: number
+          level_from?: number | null
+          level_to: number
+          manager_id?: string | null
+          notes?: string | null
+        }
+        Update: {
+          created_at?: string
+          entrep_id?: string
+          id?: number
+          level_from?: number | null
+          level_to?: number
+          manager_id?: string | null
+          notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_entrep_level_change_history_entrep_id_fkey"
+            columns: ["entrep_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_entrep_level_change_history_level_from_fkey"
+            columns: ["level_from"]
+            isOneToOne: false
+            referencedRelation: "entrep_level"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_entrep_level_change_history_level_to_fkey"
+            columns: ["level_to"]
+            isOneToOne: false
+            referencedRelation: "entrep_level"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_entrep_level_change_history_manager_id_fkey"
+            columns: ["manager_id"]
+            isOneToOne: false
+            referencedRelation: "manager"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       error_log: {
         Row: {
           created_at: string
@@ -375,10 +434,8 @@ export type Database = {
       inventory_checks: {
         Row: {
           actual_check_date: string | null
-          discount_currency: string | null
           entrep_id: string
           extension_granted: boolean | null
-          granted_discount: number | null
           id: string
           is_completed: boolean | null
           manager_id: string
@@ -388,10 +445,8 @@ export type Database = {
         }
         Insert: {
           actual_check_date?: string | null
-          discount_currency?: string | null
           entrep_id: string
           extension_granted?: boolean | null
-          granted_discount?: number | null
           id: string
           is_completed?: boolean | null
           manager_id: string
@@ -401,10 +456,8 @@ export type Database = {
         }
         Update: {
           actual_check_date?: string | null
-          discount_currency?: string | null
           entrep_id?: string
           extension_granted?: boolean | null
-          granted_discount?: number | null
           id?: string
           is_completed?: boolean | null
           manager_id?: string
@@ -930,7 +983,7 @@ export type Database = {
           {
             foreignKeyName: "user_level_map_user_id_fkey"
             columns: ["user_id"]
-            isOneToOne: false
+            isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
           }

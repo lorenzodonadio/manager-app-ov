@@ -16,7 +16,7 @@ export const load = async ({ depends, params, parent, locals }) => {
 		.maybeSingle();
 
 	if (!eLvlId) throw error(400, 'Failed to Load Entrepreneur Level');
-	const entrepLevel = p.entrepreneurLevels?.find((x) => x.id === eLvlId.level_id);
+	const entrepLevel = p.entrepreneurLevels?.find((x: { id: any }) => x.id === eLvlId.level_id);
 	if (!entrepLevel) throw error(400, 'Failed to Find Entrepreneur Level');
 
 	// We load the Filter sales for the entrepreneur
@@ -51,7 +51,7 @@ export const load = async ({ depends, params, parent, locals }) => {
 	const suppData = _suppData ?? [];
 	const approvedPayments = _approvedPayments ?? [];
 
-	const location = p.locations.find((x) => x.id === entrepProfile.location_id);
+	const location = p.locations.find((x: { id: any }) => x.id === entrepProfile.location_id);
 
 	// Same logic as in suppliesStore.ts WARNING! make sure they are the same
 	const totFilterSales = entrepSales?.reduce((acc, sale) => acc + sale.number_sold, 0) ?? 0;

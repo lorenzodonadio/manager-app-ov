@@ -12,6 +12,8 @@
 		possibleLevels={data.entrepreneurLevels}
 		entrepProfile={data.entrepProfile}
 		supabase={data.supabase}
+		levelHistory={data.levelHistory}
+		managerId={data.profile?.id}
 	/>
 
 	<div class="card p-1 sm:p-3">
