@@ -133,7 +133,7 @@
 <div class="card p-1 sm:p-3">
 	<div class="flex justify-between pb-2">
 		<div class="">
-			<h4 class="h4 capitalize">
+			<h4 class="h4 capitalize pb-1">
 				{entrepProfile.first_name}
 				{entrepProfile.last_name}
 			</h4>

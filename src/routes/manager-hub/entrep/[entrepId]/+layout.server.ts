@@ -24,9 +24,10 @@ export const load = async ({ depends, params, parent, locals }) => {
 	//  an entrepreneur can have supplies given by various managers (in theory) this is not the encouraged behaviour
 	// const suppData = p.supplies.filter((x) => x.entrep_id === params.entrepId);
 	const [
-		{ data: _entrepSales, error: salesErr },
-		{ data: _suppData, error: suppErr },
-		{ data: _approvedPayments, error: wompiErr }
+		{ data: _entrepSales, error: _err1 },
+		{ data: _suppData, error: _err2 },
+		{ data: _approvedPayments, error: _err3 },
+		{ data: deliveryAddress, error: _err4 }
 	] = await Promise.all([
 		locals.supabase
 			.from('filter_sales')
@@ -44,12 +45,15 @@ export const load = async ({ depends, params, parent, locals }) => {
 			.from('wompi_events')
 			.select('id,supply_id,amount_in_cents,created_at,finalized_at')
 			.eq('user_id', params.entrepId)
-			.eq('status', 'APPROVED')
+			.eq('status', 'APPROVED'),
+		locals.supabase
+			.from('entrep_delivery_address')
+			.select('*')
+			.eq('user_id', params.entrepId)
+			.maybeSingle()
 	]);
 	// Return empty array instead of null in case of error or something unexpected
 	const entrepSales = _entrepSales ?? [];
-	const suppData = _suppData ?? [];
-	const approvedPayments = _approvedPayments ?? [];
 
 	const location = p.locations.find((x: { id: any }) => x.id === entrepProfile.location_id);
 
@@ -63,20 +67,22 @@ export const load = async ({ depends, params, parent, locals }) => {
 	);
 	//TODO: implement enum for item-> also type it in the db, filter & cartridge for now
 	const s =
-		suppData?.filter((x) => x.item === 'FILTER').reduce((acc, s) => acc + s.quantity, 0) ?? 0;
+		_suppData?.filter((x) => x.item === 'FILTER').reduce((acc, s) => acc + s.quantity, 0) ?? 0;
 
 	const currentTotalSales = currentSales.reduce((p, c) => c.number_sold + p, 0);
+
 	return {
 		entrepSales,
 		currentSales,
 		currentTotalSales,
 		entrepProfile,
-		supplyTransactions: suppData,
+		supplyTransactions: _suppData ?? [],
 		location,
 		totFilterSales,
 		availableFilters: Math.max(s - totFilterSales, 0),
 		entrepLevel,
 		entrepreneurLevels: p.entrepreneurLevels ?? [],
-		approvedPayments
+		approvedPayments: _approvedPayments ?? [],
+		deliveryAddress
 	};
 };

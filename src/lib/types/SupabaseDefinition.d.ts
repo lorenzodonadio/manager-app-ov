@@ -113,6 +113,44 @@ export type Database = {
           }
         ]
       }
+      entrep_delivery_address: {
+        Row: {
+          address: string
+          address_second_line: string | null
+          created_at: string
+          departamento: string
+          municipio: string
+          post_code: number | null
+          user_id: string
+        }
+        Insert: {
+          address: string
+          address_second_line?: string | null
+          created_at?: string
+          departamento: string
+          municipio: string
+          post_code?: number | null
+          user_id: string
+        }
+        Update: {
+          address?: string
+          address_second_line?: string | null
+          created_at?: string
+          departamento?: string
+          municipio?: string
+          post_code?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_entrep_delivery_address_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       entrep_level: {
         Row: {
           early_pay_discount: number
@@ -202,22 +240,22 @@ export type Database = {
       error_log: {
         Row: {
           created_at: string
+          error: Json | null
           id: number
-          text: string | null
           type: string
           user_id: string | null
         }
         Insert: {
           created_at?: string
+          error?: Json | null
           id?: number
-          text?: string | null
           type: string
           user_id?: string | null
         }
         Update: {
           created_at?: string
+          error?: Json | null
           id?: number
-          text?: string | null
           type?: string
           user_id?: string | null
         }
